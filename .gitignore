@@ -1,0 +1,6 @@
+.env
+
+flask-app/app-deploy
+flask-app/app.zip
+flask-app/outputs
+flask-app/startup.sh

@@ -1,0 +1,87 @@
+cd flask-app
+
+if exist app-deploy rmdir /s /q app-deploy
+
+mkdir app-deploy
+
+copy app.py app-deploy\
+copy requirements.txt app-deploy\
+copy startup.sh app-deploy\
+
+if exist app.zip del /f /q app.zip
+tar -a -c -f app.zip -C app-deploy .
+
+az webapp config appsettings list -g random-testing -n html-pdf-ai-generator-test-flask --output table
+
+# If you see WEBSITE_RUN_FROM_PACKAGE, delete it:
+az webapp config appsettings delete ^
+  -g random-testing -n html-pdf-ai-generator-test-flask ^
+  --setting-names WEBSITE_RUN_FROM_PACKAGE
+
+# Ensure build automation flags are ON:
+az webapp config appsettings set ^
+  -g random-testing -n html-pdf-ai-generator-test-flask ^
+  --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true ENABLE_ORYX_BUILD=true
+
+
+az login
+
+az webapp deploy -g random-testing -n html-pdf-ai-generator-test-flask --src-path app.zip
+
+az webapp deploy -g random-testing -n html-pdf-ai-generator-test-flask --src-path app.zip --type zip --clean true
+
+
+
+
+
+
+
+
+
+
+az webapp config set -g random-testing -n html-pdf-ai-generator-test-flask --startup-file "gunicorn --bind=0.0.0.0:8000 --timeout 600 app:app"
+
+
+az webapp config set -g random-testing -n html-pdf-ai-generator-test-flask --startup-file "bash startup.sh"
+
+
+
+
+
+
+
+
+
+
+Generate requirements.txt:
+
+
+
+
+Go to the:
+https://html-pdf-ai-generator-test-flask.scm.azurewebsites.net/DebugConsole
+
+And then type these:
+ls -l /home/site/wwwroot/startup.sh (Put the content from startup.sh):
+```
+cat <<'EOF' > /home/site/wwwroot/startup.sh
+#!/usr/bin/env bash
+set -e
+export DEBIAN_FRONTEND=noninteractive
+
+# OS tools needed for conversions
+apt-get update && apt-get install -y --no-install-recommends wkhtmltopdf pandoc
+
+# Install Python dependencies for your app
+python -m pip install --upgrade pip
+python -m pip install --no-cache-dir -r /home/site/wwwroot/requirements.txt
+
+# Start the app
+exec gunicorn --bind=0.0.0.0:8000 --timeout 600 app:app
+EOF
+
+chmod +x /home/site/wwwroot/startup.sh
+```
+
+
+ls -l /home/site/wwwroot/requirements.txt
