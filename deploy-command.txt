@@ -6,7 +6,6 @@ mkdir app-deploy
 
 copy app.py app-deploy\
 copy requirements.txt app-deploy\
-copy startup.sh app-deploy\
 
 if exist app.zip del /f /q app.zip
 tar -a -c -f app.zip -C app-deploy .
@@ -42,7 +41,7 @@ az webapp deploy -g random-testing -n html-pdf-ai-generator-test-flask --src-pat
 az webapp config set -g random-testing -n html-pdf-ai-generator-test-flask --startup-file "gunicorn --bind=0.0.0.0:8000 --timeout 600 app:app"
 
 
-az webapp config set -g random-testing -n html-pdf-ai-generator-test-flask --startup-file "bash startup.sh"
+az webapp config set -g random-testing -n html-pdf-ai-generator-test-flask --startup-file "bash /home/site/wwwroot/startup.sh"
 
 
 
@@ -85,3 +84,150 @@ chmod +x /home/site/wwwroot/startup.sh
 
 
 ls -l /home/site/wwwroot/requirements.txt
+
+
+
+
+
+
+
+python -m playwright install chromium
+
+
+
+
+
+
+
+
+
+az webapp deploy -g random-testing -n doc-generator-npic --src-path app.zip --type zip --clean true
+
+
+
+
+
+
+
+
+
+
+
+Set azure Web app with the:
+1. Set the Environments
+2. Azure Web App Identity to be on
+3. Azure AI Foundry Project, add role assignments, Select Azure AI user.
+4. If you want the Oryx/Kudu to run pip install -r requirements.txt automatically on ZIP deploy, set:
+```
+az webapp config appsettings set ^
+  --resource-group random-testing ^
+  --name doc-generator-npic ^
+  --settings WEBSITES_ENABLE_APP_SERVICE_STORAGE=true SCM_DO_BUILD_DURING_DEPLOYMENT=true
+```
+
+5. Setup the startup command:
+```
+az webapp config set -g random-testing -n doc-generator-npic --startup-file "sh -c \"python -m playwright install chromium ^&^& gunicorn --bind 0.0.0.0:$PORT app:app\""
+```
+
+6. Enable application logging:
+```
+az webapp log config ^
+  --resource-group random-testing ^
+  --name doc-generator-npic ^
+  --application-logging filesystem ^
+  --level information
+```
+
+7. Restart the app:
+```
+az webapp restart ^
+  --resource-group random-testing ^
+  --name doc-generator-npic
+```
+
+8. Stream logs in CMD:
+```
+az webapp log tail ^
+  --resource-group random-testing ^
+  --name doc-generator-npic
+```
+
+Deploy by this command in cmd:
+```
+cd flask-app
+
+if exist app-deploy rmdir /s /q app-deploy
+
+mkdir app-deploy
+
+copy app.py app-deploy\
+copy requirements.txt app-deploy\
+
+if exist app.zip del /f /q app.zip
+tar -a -c -f app.zip -C app-deploy .
+
+az login
+
+az webapp deploy -g random-testing -n doc-generator-npic --src-path app.zip
+az webapp deploy -g random-testing -n doc-generator-npic --src-path app.zip --type zip --clean true
+
+
+az webapp deploy -g <resource-group> -n <web-app-name> --src-path app.zip --type zip --clean true
+```
+
+
+
+
+To know the tier:
+az appservice plan show --name random-testing-plan --resource-group random-testing --query "{Tier: sku.tier, Size: sku.name}" -o table
+
+
+
+
+
+
+
+
+
+From CMD only:
+az appservice plan create --name flask-webapp-npic --resource-group random-testing --sku B1 --is-linux
+
+az webapp create --resource-group random-testing --plan flask-webapp-npic --name doc-generator-npic --runtime "PYTHON|3.11"
+
+// Set a clean, quote safe Startup Command (no single quotes, no carets)
+az webapp config set -g random-testing -n doc-generator-npic --startup-file "bash -lc 'python -m playwright install chromium && exec gunicorn --bind 0.0.0.0:$PORT app:app'"
+az webapp config set -g random-testing -n doc-generator-npic --startup-file "bash -lc \"exec gunicorn --bind 0.0.0.0:$PORT app:app\""
+
+// Turn on Oryx Build and install playwright Chromium at build time (not at startup)
+az webapp config appsettings set -g random-testing -n doc-generator-npic --settings ^
+SCM_DO_BUILD_DURING_DEPLOYMENT=true ^
+PLAYWRIGHT_BROWSERS_PATH=/home/site/wwwroot/.playwright ^
+"POST_BUILD_COMMAND=python -m playwright install chromium"
+
+
+
+
+az webapp deploy -g random-testing -n doc-generator-npic --src-path app.zip
+az webapp deploy -g random-testing -n doc-generator-npic --src-path app.zip --type zip --clean true
+
+
+
+
+
+
+az webapp config appsettings set -g random-testing -n doc-generator-npic ^
+  --settings SCM_DO_BUILD_DURING_DEPLOYMENT=true
+
+az webapp config appsettings set -g random-testing -n doc-generator-npic ^
+  --settings PLAYWRIGHT_BROWSERS_PATH=/home/site/wwwroot/.playwright ^
+            "POST_BUILD_COMMAND=python -m playwright install chromium"
+
+// Set only-Gunicorn Startup Command (no playwright)
+az webapp config set -g random-testing -n doc-generator-npic ^
+  --startup-file "bash -lc 'exec gunicorn --bind 0.0.0.0:$PORT --access-logfile - --error-logfile - --log-level debug app:app'"
+
+
+
+
+az webapp config set -g random-testing -n doc-generator-npic --startup-file "/home/site/wwwroot/startup.sh"
