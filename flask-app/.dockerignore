@@ -1,0 +1,52 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info
+dist
+build
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Generated outputs
+outputs/
+*.pdf
+*.html
+*.docx
+
+# Test files
+test_*.py
+tests/
+
+# Documentation
+*.md
+README.*
+
+# Other
+.DS_Store
+Thumbs.db
+background-image.jpg
+app-deploy/

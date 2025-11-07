@@ -231,3 +231,68 @@ az webapp config set -g random-testing -n doc-generator-npic ^
 
 
 az webapp config set -g random-testing -n doc-generator-npic --startup-file "/home/site/wwwroot/startup.sh"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+az webapp config set -g random-testing -n doc-generator-npic ^
+  --generic-configurations "{\"appCommandLine\":\"\"}"
+
+
+
+az webapp config appsettings set -g random-testing -n doc-generator-npic --settings ^
+  GUNICORN_CMD_ARGS="--timeout 600 --workers 2 --worker-class gthread --threads 8"
+
+--timeout 600 → up to 10 minutes per request (tune to your typical report duration).
+--worker-class gthread --threads 8 → good for I/O-bound work (agent polling, Playwright, filesystem).
+
+
+az webapp config set -g random-testing -n doc-generator-npic --always-on true
+This improves responsiveness by preventing idle shutdowns on supported plans.
+
+
+

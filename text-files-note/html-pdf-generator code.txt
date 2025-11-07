@@ -228,59 +228,6 @@ body, .column { word-break: break-word; overflow-wrap: anywhere; }
 }
 """
 
-# BASE_CSS = """
-# /* ---------- Paged media ---------- */
-# @page { size: A4; margin: 20mm; }           /* default margins for all pages */
-# @page full-bg { margin: 0; }                /* named page with zero margins */
-
-# /* Ensure printed colors/backgrounds render in Chromium headless */
-# * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-
-# /* Global text & layout */
-# body { margin: 0; font-family: Arial, sans-serif; line-height: 1.4; }
-# h1, h2 { color: #000; margin: 0 0 8px; }
-# /* Your h4 style for regular pages; keep it if needed on non-full pages */
-# h4 { color: #000; margin: 0 0 8px; background-color: #bfdfff; padding-top: 10px; padding-bottom: 10px; }
-
-# .meta { color: #666; font-size: 12px; margin-bottom: 18px; }
-# table { border-collapse: collapse; width: 100%; }
-# th, td { border: 1px solid #aaa; padding: 6px 8px; font-size: 12px; }
-# .page-break { page-break-before: always; }
-
-# /* Two-column (table/table-cell) */
-# .two-column { display: table; width: 100%; table-layout: fixed; }
-# .column { display: table-cell; width: 50%; vertical-align: top; padding: 0 10px 0 0; }
-# .column.right { padding: 0 0 0 10px; }
-# body, .column { word-break: break-word; overflow-wrap: anywhere; }
-
-# /* ---------- Full-bleed page (blue background) ---------- */
-# /* Make the container exactly one A4 page (portrait), no margins */
-# .full-bg-page {
-#   page: full-bg;                /* attach named @page with margin:0 */
-#   background: #bfdfff;          /* paint whole page */
-#   margin: 0; padding: 0;
-#   width: 210mm;                 /* A4 width */
-#   min-height: 297mm;            /* A4 height */
-#   display: table;               /* table + table-cell for vertical centering */
-#   break-inside: avoid-page;     /* keep this block on a single page */
-# }
-
-# /* Vertical centering cell */
-# .full-bg-page .vcenter {
-#   display: table-cell;
-#   vertical-align: middle;
-#   text-align: center;
-# }
-
-# /* OPTIONAL: use a class for chart borders/centering instead of inline styles */
-# .chart-img {
-#   border: 2px solid #333;
-#   display: block;
-#   margin: 0 auto 30px auto;   /* center horizontally + spacing */
-#   width: 800px;
-# }
-# """
-
 # ------------------------------------------------------------
 # Static Content
 # ------------------------------------------------------------
@@ -348,6 +295,986 @@ Tel : 03-8886 9000
 Fax : 03-8886 9007
 Email : https://napic2.jpph.gov.my
 """
+
+GLOSSARY_MALAY = """
+Q1- suku pertama
+Q2- suku kedua
+Q3 - suku ketiga
+Q4 - suku keempat
+bahagian
+berkembar
+bilangan bangunan
+bilangan bilik
+bilik
+daerah
+jumlah
+jumlah penawaran
+jumlah ruang
+jumlah ruang dihuni
+kadar ambilan
+kadar penghunian
+kadar purata penginapan
+kedai tanpa inap
+kelas
+kilang bertingkat
+kompleks industri
+kompleks perniagaan
+kondominium
+lebih daripada 6 ½ tingkat
+lokasi
+negeri
+padang golf
+pangsapuri
+pangsapuri khidmat
+pejabat binaan khas
+pekan/bandar
+penawaran akan datang
+penawaran yang dirancang
+perubahan dalam kadar penghunian
+RM semalam
+rumah bandar
+rumah berkelompok
+rumah berkembar setingkat
+rumah kos rendah
+rumah pangsa
+rumah pangsa kos rendah
+rumah sesebuah
+rumah teres setingkat
+sebelum perang
+sesebuah
+siap dibina
+stok sedia ada
+tarif
+teres
+tiada data
+tiada maklumat
+tidak dikelaskan
+tingkat
+"""
+
+GLOSSARY_ENG = """
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Q1 – first quarter
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Q2 – second quarter
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Q3 – third quarter
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Q4 – fourth quarter
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; division
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; semi-detached
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; number of buildings
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; number of rooms
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; room
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; district
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total supply
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total space
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; total space occupied
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; take-up rate
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; occupancy rate
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; average occupancy rate
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lock-up shop
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; class
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flatted factory
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; industrial complex
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shopping complex
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; condominium
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; above 6 ½ storeys
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; location
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; state
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; golf course
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; apartment
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; service apartment
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; purpose-built office
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; city/town
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; incoming supply
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; planned supply
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; change in occupancy rate
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RM per night
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; town house
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cluster house
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; single storey semi-detached house
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; low-cost house
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flat
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; low-cost flat
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; detached house
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; single storey terraced house
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prewar
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; detached
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; completion
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; existing stock
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tariff
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; terraced
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ND – no data
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NA – not available
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NR (not rated)
+:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; storey
+"""
+
+OFFICE_BRANCH_1 = """
+IBU PEJABAT NAPIC
+Pusat Maklumat Harta Tanah Negara (NAPIC)
+Jabatan Penilaian dan Perkhidmatan Harta
+Aras 7, Perbendaharaan 2,
+No. 7, Persiaran Perdana, Presint 2
+Pusat Pentadbiran Kerajaan Persekutuan
+62592 Putrajaya
+No. Tel: 03-88869000
+No. Fax: 03- 88869007
+
+PERAK
+Jabatan Penilaian dan Perkhidmatan Harta
+Negeri Perak
+Aras 8, Menara SSM
+Jalan Basco Kepayang 1
+Basco Avenue@Kepayang
+31400 Ipoh
+No. Tel:05 - 5432800
+
+TERENGGANU
+Jabatan Penilaian dan Perkhidmatan Harta
+Negeri Terengganu
+Tingkat 9, Wisma Persekutuan
+Jalan Sultan Ismail
+20200 Kuala Terengganu
+No. Tel:09-6204550
+No. Faks:09-6204551
+"""
+
+OFFICE_BRANCH_2 = """
+WILAYAH PERSEKUTUAN
+Jabatan Penilaian dan Perkhidmatan Harta
+Tingkat 2, 1 Sentral,
+KL Sentral, Jalan Travers,
+50470 Kuala Lumpur
+No.Tel: 03-22721760
+No. Faks: 03-22721796
+
+NEGERI SEMBILAN
+Jabatan Penilaian dan Perkhidmatan Harta
+Negeri Sembilan
+Tingkat 9, Bangunan Yayasan Negeri
+Jalan Yam Tuan
+70000 Seremban
+No. Tel:06-7638602
+No. Faks:06-7639306
+
+KELANTAN
+Jabatan Penilaian dan Perkhidmatan Harta
+Negeri Kelantan
+Tingkat 12, Wisma Persekutuan
+Jalan Bayam
+15200 Kota Bahru
+No. Tel:09-7471763
+No. Faks:09-7474975
+"""
+
+OFFICE_BRANCH_3 = """
+SELANGOR
+Jabatan Penilaian dan Perkhidmatan Harta
+Negeri Selangor
+Tingkat 4, Plaza Perangsang
+40000 Shah Alam
+No.Tel:03- 55184603
+No. Faks: 03 -55119907
+
+MELAKA
+Jabatan Penilaian dan Perkhidmatan Harta
+Negeri Melaka
+Aras 7,Wisma Persekutuan
+Jalan MITC, Hang Tuah Jaya
+75450 Ayer Keroh, Melaka
+No. Tel:06-2328205
+No. Faks:06-2328202
+
+PERLIS
+Jabatan Penilaian dan Perkhidmatan Harta
+Negeri Perlis
+Tingkat 2, Bangunan Persekutuan
+Persiaran Jubli Emas
+01000 Kangar
+No. Tel:04-9782763
+No. Faks:04-9772595
+"""
+
+OFFICE_BRANCH_4 = """
+JOHOR
+Jabatan Penilaian dan Perkhidmatan Harta
+Negeri Johor
+Bangunan JARO
+No. 18, Jalan Sg, Chat
+80100 Johor Bahru, Johor
+No. Tel:07-2241707 / 2239933
+No. Faks:07-2234266
+
+KEDAH
+Jabatan Penilaian dan Perkhidmatan Harta
+Negeri Kedah
+Aras 2, Zon C, Wisma Persekutuan
+Pusat Pentadbiran Kerajaan Persekutuan
+Bandar Muadzam Shah, Anak Bukit
+06550 Alor Setar
+No. Tel:04-7001900
+No. Faks:04-7001903
+
+SABAH
+Jabatan Penilaian dan Perkhidmatan Harta
+Negeri Sabah
+Tingkat 4, Blok B, Bangunan KUWASA
+Beg Berkunci 2043
+88999 Kota Kinabalu
+No. Tel:088-248325
+No. Faks:088-242328
+"""
+
+OFFICE_BRANCH_5 = """
+PULAU PINANG
+Jabatan Penilaian dan Perkhidmatan Harta
+Negeri Pulau Pinang
+Tingkat 41, Bangunan KOMTAR
+10593 Pulau Pinang
+No. Tel:04-2644914
+No. Faks:04-2644915
+
+PAHANG
+Jabatan Penilaian dan Perkhidmatan Harta
+Negeri Pahang
+Tingkat 2, Bangunan KWSP
+Bandar Indera Mahkota
+25200 Kuantan
+No. Tel:09-5715111
+No. Faks:09-5715113
+
+SARAWAK
+Jabatan Penilaian dan Perkhidmatan Harta
+Negeri Sarawak
+Tingkat 3, Wisma Hong
+No. 202, Lot 3012, Jalan Rock
+93200 Kuching
+No. Tel:082-255859 / 234051
+No. Faks:082-234575
+"""
+
+OFFICE_BRANCH_ENQUIRIES = """
+Untuk Sebarang Pertanyaan, Sila Hubungi :
+For any enquiries, please contact:
+
+Timbalan Pengarah (Bahagian Inventori Harta Tanah)
+Tel : 03-8886 9102
+Laman Web : http://www.jpph.gov.my
+"""
+
+TECHNICAL_NOTES_MALAY = """
+<div style="font-size:12px; line-height:1.6; text-align:justify;">  
+  <p><strong><label style="margin-right: 15px;">1.0</label>Tempoh Kajian</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Laporan Stok Harta Tanah pada tahun {year} adalah seperti berikut:<br/>
+        Q1 : 1 Januari {year} - 31 Mac {year}<br/>
+        Q2 : 1 April {year} - 30 Jun {year}<br/>
+        Q3 : 1 Julai {year} - 30 September {year}<br/>
+        Q4 : 1 Oktober {year} - 31 Disember {year}
+    </label>
+  </p>
+  
+  <p><strong><label style="margin-right: 15px;">2.0</label>Peringkat Penyebaran</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Laporan terbahagi kepada tiga peringkat pembangunan utama dan subperingkat berpandukan jadual di bawah:
+    </label>
+  </p>
+
+  <p><strong><label style="margin-right: 15px;">2.1</label>Inventori Sedia Ada</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Inventori sedia ada (stok) adalah unit yang telah memperoleh sijil layak menduduki  (CF)  atau  sijil  layak  menduduki  sementara  (TCF)  sebelum  tempoh kajian termasuk unit yang siap dibina dan memperoleh CF/ TCF dalam  tempoh  kajian. Angka  dalam  inventori  sedia  ada  adalah  jumlah  terkumpul dari suku-suku sebelumnya ditambah dengan suku semasa.
+    </label>
+  </p>
+
+  <div style="text-align:center;">
+    <p><strong>INVENTORI SEDIA ADA</strong><br/>&uarr;</p>
+    <p>Siap Dibina<br/>&uarr;</p>
+    <p><strong>PENAWARAN AKAN DATANG</strong><br/>&uarr;</p>
+    <p>Dalam Pembinaan<br/>&uarr;</p>
+    <p>Mula Dibina<br/>&uarr;</p>
+    <p><strong>PENAWARAN DIRANCANG</strong><br/>&uarr;</p>
+    <p>Penawaran Baharu Dirancang</p>
+  </div>
+  
+  <p><strong><label style="margin-right: 15px;">2.2</label>Siap Dibina</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Siap  dibina  adalah  terma  yang  digunakan  bagi  bangunan  yang  mana  kerja  pembinaan  bangunan  telah  siap  dan  CF/  TCF  telah  diperolehi  dalam tempoh kajian.
+    </label>
+  </p>
+
+  <p><strong><label style="margin-right: 15px;">2.3</label>Penawaran Akan Datang</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Penawaran akan datang merangkumi unit yang mana kerja pembinaannya sedang  dijalankan  termasuk  unit  mula  dibina  dan  CF/  TCF  belum  dikeluarkan  dalam  tempoh  kajian.  Unit  dalam  penawaran  akan  datang  mewakili jumlah terkumpul yang mana unit dalam pembinaan dalam suku kajian  dan  suku  sebelumnya  ditambah  dengan  unit  yang  memulakan  pembinaan dalam suku kajian. Ianya tidak mengambil kira tanah kosong tetapi termasuk <strong>unit tertangguh.</strong><br/><br/>
+        Pengiraan  penawaran  akan  datang  adalah  berterusan  dan  belum  menyamai  jumlah  bilangan  penduduk.  Penawaran  akan  datang  yang  disebarkan  dalam  sebarang  laporan  suku  tahunan  merangkumi  penawaran  akan  datang  yang  diselaraskan  bagi  suku  sebelumnya  dan  penawaran akan datang dalam suku kajian.<br/><br/>
+        Penawaran  akan  datang  suku  sebelumnya  perlu  diselaraskan  dalam  suku kajian atas sebab berikut:<br/>
+
+        <ul style="display:block; padding-left:65px;">
+            <li>Pertambahan dalam kawasan liputan kajian</li>
+            <li>Data tertunda dari suku sebelumnya tetapi diterima dalam suku semasa</li>
+            <li>Kesilapan dalam operasi.</li>
+        </ul>
+
+        <label style="display:block; padding-left:33px;">
+            <strong>Unit  tertangguh</strong>  ialah  yang  mana  kerja  asas  bangunan  secara  fizikalnya  telah  dimulakan  tetapi  belum  siap  dibina  dan  tiada  aktiviti  pembinaan  selepas  tiga  tahun  daripada  tarikh  kelulusan  pembangunan.
+        </label>
+    </label>
+  </p>
+
+  <p><strong><label style="margin-right: 15px;">2.4</label>Mula Dibina</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Mula dibina terdiri daripada bangunan-bangunan yang mana:
+        <ul style="display:block; padding-left:65px;">
+            <li>Kerja asas dan kerja tapak bagi bangunan bertingkat rendah atau  kerja  bawah  paras  tanah  termasuk  cerucuk  dan  asas  bagi bangunan bertingkat tinggi, telah dimulakan,</li>
+            <li>Ianya  tidak  termasuk  kerja-kerja  membersih,  merata  dan  menyediakan infrastruktur</li>
+        </ul>
+    </label>
+  </p>
+
+  <p><strong><label style="margin-right: 15px;">2.5</label>Penawaran Dirancang</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Penawaran dirancang merangkumi unit yang mana kelulusan pelan bangunan telah diperolehi daripada pihak berkuasa tempatan dalam suku kajian. Unit tersebut belum memulakan pembinaan secara fizikalnya. Unit dalam penawaran dirancang termasuk jumlah terkumpul daripada suku-suku sebelumnya ditambah dengan unit dalam penawaran baharu dirancang dalam suku kajian. Pengiraan penawaran dirancang adalah berterusan dan belum menyamai jumlah bilangan penduduk. Penawaran dirancang yang disebarkan dalam sebarang laporan suku tahunan merangkumi penawaran dirancang yang diselaraskan bagi suku sebelumnya dan penawaran baharu dirancang dalam suku kajian. Penawaran yang dirancang suku sebelumnya perlu diselaraskan dalam suku kajian atas sebab berikut:
+        <ul style="display:block; padding-left:65px;">
+            <li>Pertambahan kawasan liputan kajian,</li>
+            <li>Data  tertunda  daripada  suku  sebelumnya  tetapi  diterima  dalam suku semasa,</li>
+            <li>Kesilapan dalam operasi</li>
+        </ul>
+    </label>
+  </p>
+
+  <p><strong><label style="margin-right: 15px;">2.6</label>Kelulusan Pelan Bangunan (Penawaran Baharu Dirancang)</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Penawaran  baharu  dirancang  merangkumi  unit  dimana  kelulusan  pelan bangunan telah diperolehi dari pihak berkuasa tempatan dalam suku kajian.
+    </label>
+  </p>
+
+  <p style="display:flex;">
+    <span style="margin-right:15px; flex:0 0 auto;"><strong>3.0</strong></span>
+    <span style="flex:1; text-align:justify;">
+        <strong>Penawaran Hadapan</strong> adalah terma yang digunakan dalam laporan ini bagi menunjukkan penawaran akan datang dan penawaran dirancang.
+    </span>
+  </p>
+  
+  <p>
+    <strong><label style="margin-right: 15px;">4.0</label>Terma Am</strong>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">4.1</label>Struktur</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Struktur termasuk kekal, separuh kekal dan sementara.
+    </label>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">4.2</label>Pemilikan</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Termasuk  kedai/  Pejabat  binaan  khas/  Kompleks  perniagaan  milik  kerajaan  dan  swasta.  Kerajaan  termasuklah  kerajaan  persekutuan,  negeri dan pihak berkuasa tempatan. Swasta juga merangkumi kedai yang dimiliki oleh badan separa kerajaan.
+    </label>
+  </p>
+
+  <p style="display:flex;">
+    <span style="margin-right:15px; flex:0 0 auto;"><strong>3.0</strong></span>
+    <span style="flex:1; text-align:justify;">
+        <strong>Tanah kosong</strong> tidak dikira dalam inventori sedia ada. Setelah ianya memperoleh kelulusan pelan bangunan, ianya dimasukkan dalam penawaran yang dirancang dan seterusnya memasuki pelbagai peringkat pembinaannya.
+    </span>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">5.0</label>Harta Tanah Kediaman</strong>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">5.1</label>Definisi</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Rumah  tempat  tinggal  adalah  termasuk  mana-mana  bangunan,  teneman  atau  mesuaj  yang  keseluruhannya  atau  sebahagian  binaannya,  disesuaikan  atau  diniatkan  bagi  kediaman  manusia  dan  sebahagiannya  bagi  premis  perniagaan.  Istilah  kediaman  manusia  adalah  termasuk  bangunan  yang  dibina  untuk  manusia  tinggal  bersama  keluarga.  Bagi  tujuan  laporan  ini,  rumah  kedai,  yang  mana  sebahagiannya  lagi  untuk  tempat  tinggal  adalah  dikecualikan  daripada harta tanah kediaman tetapi dilaporkan sebagai kedai.
+    </label>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">5.2</label>Jenis Harta Tanah</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Maklumat  merangkumi  kediaman  individu  samada  yang  terletak   dalam atau luar skim perumahan di dalam kawasan pihak berkuasa tempatan.  Jenis  harta  tanah  kediaman  termasuk  teres,  berkembar,  sesebuah, unit kos rendah, rumah pangsa, pangsapuri/ kondominium, unit berkelompok dan rumah bandar di semua peringkat.<br/><br/>
+        Walau  bagaimanapun,  institusi,  kuarters  dan  unit  setinggan  tidak  termasuk dalam laporan ini.
+    </label>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">6.0</label>Kedai</strong><br/>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">6.1</label>Definisi</strong><br/>
+        <label style="display:block; padding-left:33px;">
+            Kedai merangkumi premis di mana barang runcit dan perkhidmatan diniagakan.  Barang  yang  dijual  dan  perkhidmatan  yang  disediakan  memenuhi keperluan harian pelanggan.<br/><br/>
+            Kedai adalah merangkumi:
+            <ul style="display:block; padding-left:65px;">
+                <li>Rumah kedai</li>
+                <li>Kedai pejabat</li>
+                <li>Unit kedai dengan kegunaan perniagaan</li>
+                <li>Kedai makan binaan khas</li>
+            </ul>
+
+            <label style="display:block; padding-left:33px;">
+                Kedai tidak termasuk:
+            </label>
+            <ul style="display:block; padding-left:65px;">
+                <li>Kedai yang telah diubahsuai 75% (ini menunjukkan penukaran kegunaan yang kekal) kepada kegunaan perdagangan lain seperti ruang pejabat.</li>
+                <li>Kedai yang telah ditukar kegunaan secara kekal</li>
+            </ul>
+        </label>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">6.2</label>Jenis Harta Tanah</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Data adalah berdasarkan lawat periksa dalam kawasan pihak berkuasa tempatan. Jenis harta tanah kedai adalah termasuk teres, berkembar, sesebuah, kedai strata dan kedai sebelum perang. SOHO dan pangsapuri khidmat dimasukkan mulai Q1 2018.
+    </label>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">7.0</label>Industri</strong><br/>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">7.1</label>Definisi</strong><br/>
+        <label style="display:block; padding-left:33px;">
+            Unit perindustrian iaitu bangunan/ kilang yang terlibat dalam aktiviti pembuatan dan penyimpanan (gudang). Akta Penyelarasan Perindustrian 1975 (ICA) mendefinisikan “Aktiviti Pengilangan” sebagai membuat, mengubah, mengadun, menghiasi, memperkemas atau dengan cara lain merawat atau menyesuaikan apa-apa barang atau bahan dengan bermaksud pengunaan, penjualan, pengangkutan, penghantaran atau pembuangannya dan merangkumi pemasangan bahagian-bahagian dan pembaikan kapal tetapi tidak termasuk sebarang aktiviti yang biasanya berkaitan dengan perniagaan jual runcit atau borong. Unit perindustrian juga termasuk kemudahan penyimpanan stand-alone atau gudang yang tidak disebut di dalam definisi ICA. Walau bagaimanapun, laporan ini belum mengumpul data bagi kemudahan penyimpanan.
+        </label>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">7.2</label>Jenis Harta Tanah</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Data adalah berdasarkan lawatperiksa dalam dan luar kawasan pihak berkuasa tempatan. Jenis harta tanah industri merangkumi jenis perindustrian termasuk unit teres, berkembar, sesebuah, kompleks perindustrian dan bertingkat.
+    </label>
+  </p>
+  
+  <p>
+    <strong><label style="margin-right: 15px;">8.0</label>Pejabat Binaan Khas</strong><br/>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">8.1</label>Definisi</strong><br/>
+        <label style="display:block; padding-left:33px;">
+            Bangunan binaan khas bermaksud satu kegunaan utama yang disokong oleh kegunaan sampingan. Kegunaan utama menggabungkan rekabentuk asal, yang mengoptimumkan ruang bagi manfaatnya. Apabila rekabentuk asal diubahsuai sebanyak 75% bagi memanfaatkan kegunaan lain, kegunaan asalnya akan ditukar dengan kegunaan baru.<br/><br/>
+            Inventori pejabat binaan khas dalam laporan NAPIC termasuk tempat perniagaan berbentuk perkhidmatan dijalankan dan bukannya pembuatan atau penjualan barangan. Ruang pejabat ini diperlukan untuk aktiviti kertas kerja, komunikasi serta lain-lain aktiviti pejabat.<br/><br/>
+            Dengan ini terma pejabat binaan khas digunakan untuk menunjukkan bangunan yang dibina secara khusus untuk pejabat sebagai kegunaan utamanya. Bagi pengumpulan dan penyebaran maklumat oleh NAPIC, kegunaan dominan bermaksud kegunaan pejabat adalah tidak kurang dari 75% daripada keluasan bersih yang disewakan. Penyebaran maklumat ruang pejabat adalah berdasarkan luas bersih yang disewakan sebagaimana yang dinyatakan di dalam Uniform Methods of Measurement of Buildings yang diterbitkan oleh Pertubuhan Juruukur DiRaja Malaysia.<br/><br/>
+
+            Termasuk di dalam laporan ini adalah:
+            <ul style="display:block; padding-left:65px;">
+                <li>Ruang pejabat dalam pembangunan bersepadu</li>
+                <li>Ruang dengan kegunaan asal misalnya pejabat tetapi telah ditukar kegunaannya buat sementara waktu</li>
+            </ul>
+
+            <label style="display:block; padding-left:33px;">
+                Tidak termasuk di dalam laporan ini adalah:
+            </label>
+            <ul style="display:block; padding-left:65px;">
+                <li>Ruang pejabat dalam bangunan pelbagai guna di mana kegunaannya boleh bertukar ganti dengan kegunaan perniagaan, kediaman, hotel dan perindustrian.</li>
+                <li>Ruang pejabat yang mana telah ditukar dari kegunaan asalnya secara kekal.</li>
+            </ul>
+        </label>
+  </p>
+  
+  <p>
+    <strong><label style="margin-right: 15px;">9.0</label>Kompleks Perniagaan</strong><br/>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">9.1</label>Definisi</strong><br/>
+        <label style="display:block; padding-left:33px;">
+            Kompleks perniagaan termasuk penubuhan perniagaan pelbagai unit dengan laluan pejalan kaki yang tertutup bagi menggalakkan aliran pejalan kaki untuk menampung aktiviti perniagaan. Maklumat kompleks perniagaan yang disebarkan oleh NAPIC merangkumi:
+            <ul style="display:block; padding-left:65px;">
+                <li>Pusat membeli-belah</li>
+                <li>Arked perniagaan</li>
+                <li>Pasar raya besar (stand-alone)</li>
+            </ul>
+
+            <label style="display:block; padding-left:33px;">
+                Pusat beli-belah ialah penubuhan perniagaan binaan khas dominan yang dirancang, dibangunkan dan diurusniagakan dalam beberapa rangkaian dalam satu pusat untuk perniagaan. Bagi pengumpulan dan penyebaran maklumat oleh NAPIC, kegunaan dominan bermaksud kegunaan perniagaan adalah tidak kurang dari 75% daripada luas bersih yang disewakan.<br/><br/>
+
+                Pusat membeli-belah mempunyai:
+            </label>
+            
+            <ul style="display:block; padding-left:65px;">
+                <li>Jalan-jalan keluar dalam kawasan tertutup yang mempunyai kawalan suhu dan ruang laluan pejalan kaki yang lebar</li>
+                <li>Penyewa perniagaan runcit dan perkhidmatan yang telah dipilah bagi tujuan keseimbangan perniagaan</li>
+                <li>Satu atau lebih penyewa utama</li>
+                <li>Satu syarikat pengurusan</li>
+                <li>Tempat letak kereta kegunaan bersama</li>
+                <li>Sistem penyaman udara pusat</li>
+                <li>Perkhidmatan keselamatan pusat</li>
+                <li>Perkhidmatan kawalan kebakaran pusat</li>
+                <li>Lif dan eskalator kegunaan bersama</li>
+                <li>Lampu, tunjuk arah dan landskap kegunaan bersama</li>
+                <li>Polisi pengurusan yang seragam</li>
+                <li>Kegunaan sampingan seperti perbankan dan perkhidmatan lain, yang mana adalah kurang dari 25% daripada luas lantai bersih</li>
+            </ul>
+
+            <label style="display:block; padding-left:33px;">
+                Arked perniagaan adalah kedai runcit dominan bagi tujuan perniagaan yang terletak di sebelah atau kedua-dua belah laluan kedai tersebut. Bagi pengumpulan dan penyebaran maklumat oleh NAPIC, kegunaan dominan bermaksud kegunaan perniagaan mestilah tidak kurang daripada 75% luas lantai bersih.
+                <br/><br/>
+
+                Arked perniagaan mempunyai:
+            </label>
+            <ul style="display:block; padding-left:65px;">
+                <li>Kebiasaannya laluan pejalan kaki terbuka dan terdapat juga arked yang mempunyai ruang laluan pejalan kaki yang mempunyai kawalan suhu</li>
+                <li>Penyewa runcit dan perkhidmatan kebiasaannya tidak terancang serta barangan yang dijual adalah serupa</li>
+                <li>Tiada penyewa utama dalam arked</li>
+                <li>Satu syarikat pengurusan</li>
+                <li>Tempat letak kereta kegunaan bersama</li>
+                <li>Kebiasaannya tiada sistem penyaman udara, tetapi terdapat juga arked yang mempunyai unit penyaman udara dan sistem penyaman udara</li>
+                <li>Kebiasaannya tiada perkhidmatan keselamatan pusat</li>
+                <li>Perkhidmatan kawalan kebakaran pusat</li>
+                <li>Kebiasaannya tangga tetapi terdapat arked yang mempunyai lif dan eskalator kegunaan bersama</li>
+                <li>Lampu, tunjuk arah dan landskap pada amnya adalah minimum</li>
+                <li>Polisi pengurusan seragam yang minima</li>
+                <li>Kegunaan sampingan seperti perkhidmatan insuran, yang mana adalah kurang dari 25% daripada luas lantai bersih</li>
+            </ul>
+
+            <label style="display:block; padding-left:33px;">
+                Inventori arked perniagaan juga merangkumi:
+            </label>
+            <ul style="display:block; padding-left:65px;">
+                <li>Ruang dengan kegunaan asal sebagai perniagaan tetapi telah ditukar kegunaannya buat sementara waktu</li>
+                <li>Ruang niaga dalam pembangunan bersepadu (di mana pelbagai kategori kegunaan saling membantu satu sama lain).</li>
+            </ul>
+
+            <label style="display:block; padding-left:33px;">
+                Tidak termasuk dalam laporan ini adalah:
+            </label>
+            <ul style="display:block; padding-left:65px;">
+                <li>Ruang niaga dalam bangunan pelbagai guna di mana kegunaannya boleh bertukar ganti dengan kegunaan pejabat, kediaman, hotel dan industri.</li>
+                <li>Ruang niaga yang mana telah ditukar dari kegunaan asalnya secara kekal.</li>
+                <li>Ruang niaga dalam kompleks perniagaan yang digunakan untuk boling, medan selera, taman tema dan panggung wayang.</li>
+            </ul>
+
+            <label style="display:block; padding-left:33px;">
+                Pasar raya besar adalah pembangunan perniagaan yang mendapat faedah dari skala ekonomi akibat daripada saiz minimum yang besar dan menawarkan persaingan harga dan rangkaian barangan yang banyak. Pasar raya dalam data NAPIC termasuklah:
+            </label>
+            <ul style="display:block; padding-left:65px;">
+                <li>Pembangunan perniagaan dengan keperluan modal minimum RM50 juta dan saiz minimum 5,000 m.p.</li>
+                <li>Diuruskan oleh satu pemilik / perbadanan dengan kemudahan umum.</li>
+                <li>Bangunan bebas (freestanding) di bawah satu bumbung.</li>
+            </ul>
+
+            <label style="display:block; padding-left:33px;">
+                Tidak termasuk di dalam laporan ini adalah:
+            </label>
+            <ul style="display:block; padding-left:65px;">
+                <li>Pasar raya yang mana merupakan penyewa utama di kompleks perniagaan.</li>
+            </ul>
+        </label>
+  </p>
+  
+  <p><strong><label style="margin-right: 10px;">10.0</label>Liputan Kajian</strong><br/>
+        <label style="display:block; padding-left:33px;">
+            Liputan kajian bagi semua jenis sektor harta tanah kecuali hotel adalah seperti berikut:
+            <ul style="display:block; padding-left:65px;">
+                <li>Dalam kawasan pihak berkuasa tempatan</li>
+                <li>Skim perumahan</li>
+                <li>Luar skim perumahan - bangunan yang mempunyai kelulusan pelan bangunan</li>
+            </ul>
+        </label>
+  </p>
+  
+  <p>
+    <strong><label style="margin-right: 10px;">11.0</label>Harta Tanah Riadah</strong><br/>
+  </p>
+
+  <p><strong><label style="margin-right: 10px;">11.1</label>Definisi</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Merangkumi Hotel yang menyediakan penginapan jangka pendek yang mana tetamu hotel atau pengunjung perlu membayar kemudahan yang disediakan. Bilik yang disediakan adalah lengkap untuk penginapan sementara dan khidmat pembantu hotel.
+        <br/><br/>
+
+        Termasuk di dalam laporan ini adalah:
+        <ul style="display:block; padding-left:65px;">
+            <li>Hotel yang menawarkan 10 bilik dan ke atas yang dikenalpasti oleh Kementerian Pelancongan.</li>
+            <li>Motel, rumah tumpangan, chalet, kabin, kotej, rumah kampung, hotel resort.</li>
+            <li>Hotel binaan khas dan bangunan pelbagai guna atau bangunan yang diubahsuai yang mempunyai lesen untuk beroperasi sebagai hotel.</li>
+        </ul>
+
+        <label style="display:block; padding-left:33px;">
+            Tidak termasuk:
+            Hostel, pangsapuri khidmat dan rumah rehat kerajaan.
+            <br/><br/>
+
+            Pangsapuri Khidmat yang dimasukkan dalam Laporan Stok Harta Tanah Riadah merupakan sesebuah bangunan yang turut menyediakan penginapan jangka pendek yang mana tetamu hotel atau pengunjung perlu membayar kemudahan yang disediakan. Setiap unit menyediakan ruang yang lebih besar berbanding dengan bilik hotel dan mempunyai suasana seperti sebuah rumah yang dilengkapi dengan ruang tamu, ruang makan, dapur dan bilik tidur daripada satu hingga empat bilik beserta bilik air. Perkhidmatan yang disediakan sama seperti hotel. Unit-unit ini adalah sebagaimana yang terdapat di dalam stok kediaman kecuali ianya dimiliki oleh pengusaha hotel atau dijalankan oleh mereka sebagai alternatif kepada bilik hotel.
+        </label>  
+    </label>
+  </p>
+
+  <p><strong><label style="margin-right: 10px;">11.2</label>Jenis Harta Tanah</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Penyebaran NAPIC termasuk semua hotel yang berada di dalam sempadan negeri.
+    </label>
+  </p>
+
+  <p><strong><label style="margin-right: 10px;">11.3</label>Pengelasan</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Penerbitan adalah termasuk hotel yang diberi penarafan atau tidak. Pengelasan hotel ditentukan oleh Kementerian Pelancongan Malaysia berdasarkan taraf antarabangsa. Hotel kelas ekonomi diberi penarafan okid (3 peringkat) dan selain itu adalah penarafan bintang (5 peringkat). Penarafan bintang bagi hotel-hotel di Malaysia dikendalikan oleh Kementerian Pelancongan dan Kebudayaan Malaysia.
+    </label>
+  </p>
+</div>
+"""
+
+TECHNICAL_NOTES_ENG = """
+<div style="font-size:12px; line-height:1.6; text-align:justify;">  
+  <p><strong><label style="margin-right: 15px;">1.0</label>Review Periods</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        The quarters in the {year} of the Property Stock Report is as follows:<br/>
+        Q1 : 1 January {year} - 31 March {year}<br/>
+        Q2 : 1 April {year} - 30 June {year}<br/>
+        Q3 : 1 July {year} - 30 September {year}<br/>
+        Q4 : 1 October {year} - 31 December {year}
+    </label>
+  </p>
+  
+  <p><strong><label style="margin-right: 15px;">2.0</label>Stages of Dissemination</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Information at the three main stages of development and their sub-stages according to the chart below:
+    </label>
+  </p>
+
+  <p><strong><label style="margin-right: 15px;">2.1</label>Existing Inventory (stock)</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Existing inventory (stock) are units that have been issued with the certificate of fitness (CF) or temporary certificate of fitness (TCF) prior to the review period plus units completed and issued with CF/ TCF within the review period. The figures in the existing inventory are accumulated figures from previous quarters plus the review quarter.
+    </label>
+  </p>
+
+  <div style="text-align:center;">
+    <p><strong>EXISTING INVENTORY</strong><br/>&uarr;</p>
+    <p>Completion<br/>&uarr;</p>
+    <p><strong>INCOMING SUPPLY</strong><br/>&uarr;</p>
+    <p>Under Construction<br/>&uarr;</p>
+    <p>Starts<br/>&uarr;</p>
+    <p><strong>PLANNED SUPPLY</strong><br/>&uarr;</p>
+    <p>New Planned Supply</p>
+  </div>
+  
+  <p><strong><label style="margin-right: 15px;">2.2</label>Completions</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Completion is the term used when the building construction works are completed and a CF/ TCF is issued within the review period.
+    </label>
+  </p>
+
+  <p><strong><label style="margin-right: 15px;">2.3</label>Incoming supply</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Incoming supply comprises units where physical construction works are in progress including starts and CF/ TCF have not been issued during the review period. Units in the incoming supply represent accumulative totals where units under construction in the review quarter and from the previous quarter are added to the units that have started construction in the review quarter. It does not include vacant land but includes <strong>delayed units.</strong><br/><br/>
+        The calculation of incoming supply is ongoing and has not reached a total population count. Incoming supply disseminated in any quarter publication includes the adjusted incoming supply for the previous quarter and the incoming supply in the review quarter.<br/><br/>
+        Incoming supply of the previous quarter have to be adjusted in the review quarter because of the following reasons:<br/>
+
+        <ul style="display:block; padding-left:65px;">
+            <li>An increase in coverage</li>
+            <li>Delayed data from the previous quarter but received during the review period</li>
+            <li>Operational errors.</li>
+        </ul>
+
+        <label style="display:block; padding-left:33px;">
+            <strong>Delayed units</strong> are those where the foundation work has physically started but not completed and no construction activity has taken place for a period of more than three years from the date the development was approved.
+        </label>
+    </label>
+  </p>
+
+  <p><strong><label style="margin-right: 15px;">2.4</label>Starts</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Starts comprises buildings where:
+        <ul style="display:block; padding-left:65px;">
+            <li>The foundation and footing works of low-rise buildings or works below ground level including piling and foundation of high-rise buildings have started, and</li>
+            <li>It does not include site clearring, levelling and laying of infrastructure.</li>
+        </ul>
+    </label>
+  </p>
+
+  <p><strong><label style="margin-right: 15px;">2.5</label>Planned supply</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Planned supply comprises units with building plan approval obtained within a review quarter from the local authority. The units have not started physical construction works. Units in the planned supply include accumulative totals from previous quarters plus units in the new planned supply in the review quarter. The calculation of planned supply is ongoing and has not reached a total population count. Planned supply disseminated in any quarter publication includes the adjusted planned supply for the previous quarter and the planned supply in the review quarter. Planned supply of the previous quarter has to be adjusted in the review quarter because of the following reasons:
+        <ul style="display:block; padding-left:65px;">
+            <li>An increase in coverage</li>
+            <li>Delayed data from the previous quarter but received during the review period,</li>
+            <li>Operational errors.</li>
+        </ul>
+    </label>
+  </p>
+
+  <p><strong><label style="margin-right: 15px;">2.6</label>Building Plan Approval (New planned supply)</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        New planned supply comprises units where building plan approval have been obtained within the review period.
+    </label>
+  </p>
+
+  <p style="display:flex;">
+    <span style="margin-right:15px; flex:0 0 auto;"><strong>3.0</strong></span>
+    <span style="flex:1; text-align:justify;">
+        <strong>Future supply</strong> is a term used in the report to denote incoming supply and planned supply.
+    </span>
+  </p>
+  
+  <p>
+    <strong><label style="margin-right: 15px;">4.0</label>General Terms</strong>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">4.1</label>Structures</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        The structure include permanent, semi-permanent and temporary construction.
+    </label>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">4.2</label>Ownership</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Include all shops/ purpose-built office/ shopping complexes owned by government and private sectors. Governments comprise federal, state and local authorities. Private sector embraces private companies and quasi-government agencies.
+    </label>
+  </p>
+
+  <p style="display:flex;">
+    <span style="margin-right:15px; flex:0 0 auto;"><strong>3.0</strong></span>
+    <span style="flex:1; text-align:justify;">
+        <strong>Vacant lands</strong> are not included under existing inventory. When they obtained building plan approval they are included under planned supply and progresses into the construction stages.
+    </span>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">5.0</label>Residential Property</strong>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">5.1</label>Definition</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Defines housing accommodation to include any building, which is wholly or principally constructed, adapted or intended for human habitation or partly for human habitation and partly for business premises. The term human habitation would include buildings constructed for humans to live with their families. For the purpose of this report, shop houses, which is partially used as retail and partially for human habitation is excluded as residential property but reported as shop.
+    </label>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">5.2</label>Property Types</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        The data is conducted by survey within local authority area. Property types include terraced, semi-detached, detached, low-cost units, flats, condominium/ apartment, clustered units and town houses at various levels.<br/><br/>
+        However, the property excluded from this report are institutional quarters and squatter units.
+    </label>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">6.0</label>Shop</strong><br/>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">6.1</label>Definition</strong><br/>
+        <label style="display:block; padding-left:33px;">
+            Shops are premises where retail goods and services are sold. The goods and services meet day-to-day needs of customers.<br/><br/>
+            Kedai adalah merangkumi:
+            <ul style="display:block; padding-left:65px;">
+                <li>Shop house</li>
+                <li>Shop offices</li>
+                <li>Shop unit with retail use</li>
+                <li>Purpose-built eateries</li>
+            </ul>
+
+            <label style="display:block; padding-left:33px;">
+                The shops excluded:
+            </label>
+            <ul style="display:block; padding-left:65px;">
+                <li>Shops that have been renovated 75% (indicating a permanent change) to other commercial uses like office space.</li>
+                <li>Shops that has permanently changed to another use.</li>
+            </ul>
+        </label>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">6.2</label>Property Types</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        The data is collected through surveys conducted within local authority areas. Property types include terraced, semi-detached, detached, stratified shop, and pre-war. SOHO and serviced apartments are included from Q1 2018 onwards.
+    </label>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">7.0</label>Industrial</strong><br/>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">7.1</label>Definition</strong><br/>
+        <label style="display:block; padding-left:33px;">
+            Units are buildings or factories that engage in manufacturing activity and storage (warehouses). The Industrial Coordination Act 1975 (ICA) defines industrial activity as the making, altering, blending, ornamenting, finishing or otherwise treating or adapting any article or substance with a view of its use, sale, transport, delivery or disposal; and includes the assembly of parts and ship repairing but shall not include any activity normally associated with retail or wholesale trade. Industrial units also include stand-alone storage facilities or warehouses that are not mentioned in the ICA definition. However, the publication has not captured the data on storage facilities.
+        </label>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">7.2</label>Property Types</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        The data is conducted by survey within and outside local authority area. Property types include terraced, semi-detached, detached, industrial complex and flatted units.
+    </label>
+  </p>
+  
+  <p>
+    <strong><label style="margin-right: 15px;">8.0</label>Purpose-built Offices</strong><br/>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">8.1</label>Definition</strong><br/>
+        <label style="display:block; padding-left:33px;">
+            Purpose-built (as opposed to multi-purpose) signifies one primary use with supporting uses complimenting it. The intended use incorporates an original design, which optimises space for its benefit. When the original design is renovated by 75% to benefit another use, the original intention is replaced by the new use.<br/><br/>
+            NAPIC publication of purpose-built office inventory includes places where service-orientated businesses are carried out as opposed to goods being manufactured or sold. The office space is required to attend to paperwork for communication and other office activity.<br/><br/>
+            Therefore the term purpose-built office is used to denote buildings that are intentionally built with office as a dominant use. In data capturing and dissemination by NAPIC, dominant use means office use not less than 75% of the net let-table area. Office space information is disseminated based on the net let-table floor area according to the Uniform Methods of Measurement of Buildings of the Royal Institution of Surveyors Malaysia.<br/><br/>
+
+            Included within the inventory are:
+            <ul style="display:block; padding-left:65px;">
+                <li>Office space within integrated development</li>
+                <li>Space with the original use as office but has changed use on a temporary basis</li>
+            </ul>
+
+            <label style="display:block; padding-left:33px;">
+                Ecluded from the inventory are:
+            </label>
+            <ul style="display:block; padding-left:65px;">
+                <li>Office space within multipurpose buildings where use can interchange with retail, residential, hotel and industrial use</li>
+                <li>Office space that has permanently changed from the orginal use</li>
+            </ul>
+        </label>
+  </p>
+  
+  <p>
+    <strong><label style="margin-right: 15px;">9.0</label>Shopping Complex</strong><br/>
+  </p>
+
+  <p>
+    <strong><label style="margin-right: 15px;">9.1</label>Definition</strong><br/>
+        <label style="display:block; padding-left:33px;">
+            Shopping complexes include multi-unit retail establishments under a covered walkway that encourages pedestrian flow to sustain business activity. Shopping complexes disseminated by NAPIC include:
+            <ul style="display:block; padding-left:65px;">
+                <li>Shopping centres</li>
+                <li>Shopping arcades</li>
+                <li>Hypermarkets (stand-alone)</li>
+            </ul>
+
+            <label style="display:block; padding-left:33px;">
+                Shopping centres are purpose-built dominant retail establishments planned, developed and operated as a number of outlets within a centre for trade. In data capturing and dissemination by NAPIC, dominant use means retail use not less than 75% of the net lettable area.</br></br>
+
+                Shopping centers have:
+            </label>
+            
+            <ul style="display:block; padding-left:65px;">
+                <li>Outlets within an enclosed climate-controlled and spacious walkway</li>
+                <li>Retail and service tenants selected for merchandise balance</li>
+                <li>One or more anchor tenants</li>
+                <li>A single management company</li>
+                <li>Common car parks</li>
+                <li>Central air-conditioning</li>
+                <li>Central security service</li>
+                <li>Central fire fighting services</li>
+                <li>Common lifts and escalators</li>
+                <li>Common lighting, signage and landscaping</li>
+                <li>Unified management policies</li>
+                <li>Complimentary secondary uses like banking and other services, which are less than 25% of the net floor area.</li>
+            </ul>
+
+            <label style="display:block; padding-left:33px;">
+                Shopping arcades are dominant retail shops along one or both sides for trade. In data capturing and dissemination by NAPIC, dominant use means retail use not less than 75% of the net lettable area.
+                <br/><br/>
+
+                Shopping arcades have:
+            </label>
+            <ul style="display:block; padding-left:65px;">
+                <li>Generally open-sided walkway and few have an enclosed climate-controlled passageway.</li>
+                <li>Retail and service tenants mix generally unplanned and retail goods are generally similar in kind</li>
+                <li>No anchor tenants within the arcade</li>
+                <li>A single management company</li>
+                <li>Common car parks or public car parks</li>
+                <li>Generally no air-conditioning, some unit air-conditioning and few with central air conditioning</li>
+                <li>Central security service generally unavailable</li>
+                <li>Central fire fighting services</li>
+                <li>Mostly stairways but some have common lifts and escalators</li>
+                <li>General minimum common lighting, signage and landscaping</li>
+                <li>Minimum unified management policies</li>
+                <li>Complimentary secondary uses like insurance services, which are less than 25% of the net floor area.</li>
+            </ul>
+
+            <label style="display:block; padding-left:33px;">
+                Included within the inventory are:
+            </label>
+            <ul style="display:block; padding-left:65px;">
+                <li>Space with the original use as retail but has changed use on a temporary basis.</li>
+                <li>Retail space in an integrated development (where various category of use compliment each other).</li>
+            </ul>
+
+            <label style="display:block; padding-left:33px;">
+                Excluded from the inventory are:
+            </label>
+            <ul style="display:block; padding-left:65px;">
+                <li>Retail space within multipurpose buildings where use can interchange with office, residential, hotel and industrial use.</li>
+                <li>Retail space that has permanently changed from the original use.</li>
+                <li>Retail space within shopping complexes for bowling alley, food court, theme park and Cineplex.</li>
+            </ul>
+
+            <label style="display:block; padding-left:33px;">
+                Hypermarkets are retail establishments that benefit from the economies of scale due to its large minimum size and offers competitive pricing and a wide range of goods. Hypermarkets in NAPIC publication include:
+            </label>
+            <ul style="display:block; padding-left:65px;">
+                <li>Retail establishments with a minimum paid-up capital requirement of RM50 million and minimum size of 5,000 s.m.</li>
+                <li>Operated by s ingle owner/corporation with common facilities / amenities.</li>
+                <li>A freestanding building under one roof</li>
+            </ul>
+
+            <label style="display:block; padding-left:33px;">
+                Excluded from publication:
+            </label>
+            <ul style="display:block; padding-left:65px;">
+                <li>Hypermarkets that are an anchor in shopping centres.</li>
+            </ul>
+        </label>
+  </p>
+  
+  <p><strong><label style="margin-right: 10px;">10.0</label>Coverage</strong><br/>
+        <label style="display:block; padding-left:33px;">
+            The coverage of for all property sector except hotel are follows:
+            <ul style="display:block; padding-left:65px;">
+                <li>Within local authority area</li>
+                <li>Housing scheme</li>
+                <li>Outside housing scheme - buildings that hare obtained building plan approval</li>
+            </ul>
+        </label>
+  </p>
+  
+  <p>
+    <strong><label style="margin-right: 10px;">11.0</label>Leisure Property</strong><br/>
+  </p>
+
+  <p><strong><label style="margin-right: 10px;">11.1</label>Definition</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Includes hotel with a number of rooms within a building that provides short-term accommodation for hotel guests or travellers who pay for the services provided. The rooms provided are furnished for a short stay and maid service.
+        <br/><br/>
+
+        Hotel inventory includes:
+        <ul style="display:block; padding-left:65px;">
+            <li>Hotel that offer 10 rooms and above as defined by the Ministry of Tourism.</li>
+            <li>Motels, lodging homes, chalets, cabins, cottages, kampong houses, resort hotels.</li>
+            <li>Purpose-built hotels and multi-purpose buildings or modified buildings with a licence to operate as a hotel.</li>
+        </ul>
+
+        <label style="display:block; padding-left:33px;">
+            Excludes:
+            Hostels, serviced apartments and public operated rest house.
+            <br/><br/>
+
+            The Leisure Property Stock Report also includes serviced apartments, which are a number of units within a building that also provides short-term accommodation for hotel guests and travellers who pay for the services provided. Each unit provides more space compared to a hotel room and has a home-like atmosphere with a living room, a dining room, a kitchenette, and a choice of bedrooms from one to four rooms with attached bathrooms. Services provided are very similar to hotels. These units are similar to those under residential stock except that hoteliers own them or run them as an alternative to hotel rooms.
+        </label>  
+    </label>
+  </p>
+
+  <p><strong><label style="margin-right: 10px;">11.2</label>Property Types</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        NAPIC dissemination includes all hotels within the state boundary.
+    </label>
+  </p>
+
+  <p><strong><label style="margin-right: 10px;">11.3</label>Classification</strong><br/>
+    <label style="display:block; padding-left:33px;">
+        Both rated and unrated hotels are included within the publication. Hotel rating classification is carried out by the Ministry of Tourism Malaysia based on international standards. Budget hotels are rated by orchid classification (3 levels) and the others are by star classification (5 levels). The rating of hotels in Malaysia is ongoing and carried out by the Ministry of Tourism and Culture Malaysia.
+    </label>
+  </p>
+</div>
+
+"""
+
+
 
 # ------------------------------------------------------------
 # Agent Instructions
@@ -422,7 +1349,11 @@ You are an HTML builder for a printable A4 report.
  Page 2: No title. {COPYRIGHT_BM!r} content on the left (wrap with <p></p>), {COPYRIGHT_ENG!r} content on the right (wrap with <p></p>). English version on the right is in italic.
     - The content should be at the center of the page vertically and horizontally.
     - The content should have margin-top 200mm.
-    - Make the <div> that wrapping this content height: 0mm.
+    - Use this sturcture:
+    <div class="two-column">
+        <div class="column left">[COPYRIGHT_BM]</div>
+        <div class="column right">[COPYRIGHT_ENG]</div>
+    </div>
  
  Page 3: Pendahuluan at the top as title (Use h3) at the center top instead start from left, and the content have to be just like from {PENDAHULUAN_BM!r}. Double <br/> for each blank line.
 
@@ -575,12 +1506,55 @@ Page 12: Render a full-bleed page with #bfdfff background.
     </div>
     - No break-page at the top of this page.
 
-Page 13: Put the Technical Notes Version
+Page 13: No title. {TECHNICAL_NOTES_MALAY!r} content on the left (wrap with <p></p>), {TECHNICAL_NOTES_ENG!r} content on the right (wrap with <p></p>).
+    - Contenty font-size: 15px
+    - English version on the right is in italic.
+    - "CATATAN TEKNIKAL" and "TECHNICAL NOTES" as title is bold (use h5). Align to left.
+    - Use this exact structure:
+    <div class="two-column">
+        <div class="column left">
+            [CATATAN TEKNIKAL title in h5 (bold)]
+            [TECHNICAL_NOTES_MALAY]
+        </div>
+        <div class="column right">
+            [TECHNICAL NOTES title in h5 (bold)]
+            [TECHNICAL_NOTES_ENG]
+        </div>
+    </div>
+
+Page 14: No title. {GLOSSARY_MALAY!r} content on the left (wrap with <p></p>), {GLOSSARY_ENG!r} content on the right (wrap with <p></p>).
+    - Contenty font-size: 15px
+    - English version on the right is in italic.
+    - "Glosari " and "Glossary" as title is bold (use h3). Align to left.
+    - Use this structure:
+    <div class="two-column">
+        <div class="column left">
+            [Glosari title in h3 (bold)]
+            [GLOSSARY_MALAY]
+        </div>
+        <div class="column right">
+            [Glossary title in h3 (bold) and padding left 40px]
+            [GLOSSARY_ENG]
+        </div>
+    </div>
+
+Page 15: Title is "Cawangan JPPH Di Seluruh Negara / JPPH Branch Offices". The "/ JPPH Branch Offices" should be italic.
+    - The title of the page use h3.
+    - Below the title, render the entire branch list as ONE block (not two columns).
+    - All content after title font-size is 12px.
+    - No border on the content.
+    - First row, put each of the {OFFICE_BRANCH_1!r} content in a column. Should be in 3 columns. Bold the "IBU PEJABAT NAPIC", "PERAK", "TERENGGANU". Give 20px gap between column. For the whole block, put padding-bottom 10px. Font-size: 12px
+    - Second row, put each of the {OFFICE_BRANCH_2!r} content in a column. Should be in 3 columns. Bold the "WILAYAH PERSEKUTUAN", "NEGERI SEMBILAN", "KELANTAN". Give 20px gap between column. For the whole block, put padding-bottom 10px. Font-size: 12px
+    - Third row, put each of the {OFFICE_BRANCH_3!r} content in a column. Should be in 3 columns. Bold the "SELANGOR", "MELAKA", "PERLIS". Give 20px gap between column. For the whole block, put padding-bottom 10px. Font-size: 12px
+    - Fourth row, put each of the {OFFICE_BRANCH_4!r} content in a column. Should be in 3 columns. Bold the "JOHOR", "KEDAH", "SABAH". Give 20px gap between column. For the whole block, put padding-bottom 10px. Font-size: 12px
+    - Fifth row, put each of the {OFFICE_BRANCH_5!r} content in a column. Should be in 3 columns. Bold the "PULAU PINANG", "PAHANG", "SARAWAK". Give 20px gap between column. For the whole block, put padding-bottom 10px. Font-size: 12px
+    - Sixth row (not included as one block as the other), put {OFFICE_BRANCH_ENQUIRIES!r} at the center horizontally and text center. Padding-top: 100px, font-size: 15px. Italic the 'For any enquiries, please contact:'.
+
 
 - For every bilingual section, use EXACTLY this structure:
  <div class="two-column">
     <div class="column left">[Malay content]</div>
-    <div class="column right"><i>[English content]</i></div>
+    <div class="column right">[English content]</div>
  </div>
 - For the english content, make it italic.
 - Do NOT use CSS columns or modern flexbox. The CSS provided uses table/table-cell layout.
@@ -675,7 +1649,7 @@ def run_agent_text(agent, user_payload: dict, system_hint: str = "") -> str:
                 texts.append(t.text.value)
     return "\n".join(texts).strip()
 
-def orchestrate_report(payload: dict) -> dict:
+def orchestrate_report(payload: dict, forced_job_id: str | None = None) -> dict:
     _ensure_agents()
     if _init_error:
         raise RuntimeError(_init_error)
@@ -692,9 +1666,12 @@ def orchestrate_report(payload: dict) -> dict:
         system_hint="Terjemah ke Bahasa Malaysia dengan gaya rasmi mengikut arahan."
     )
 
-    # --- NEW: Create job dir early to store chart files ---
-    title = payload.get("title") or "Generated Report"
-    base_filename = f"{slugify(title)}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    if forced_job_id:
+        base_filename = forced_job_id
+    else:
+        title = payload.get("title") or "Generated Report"
+        base_filename = f"{slugify(title)}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+
     job_dir = OUTPUT_DIR / base_filename
 
     # Build chart PNGs and return file:/// URIs
@@ -1194,6 +2171,38 @@ def generate_all_charts(payload: dict, job_dir: Path) -> dict:
 
     return charts
 
+
+
+# ------------------------------------------------------------
+# JOB STATUS HELPERS
+# ------------------------------------------------------------
+JOB_STATUS_FILENAME = "status.json"
+
+def _write_status(job_dir: Path, status: str, error: str | None = None):
+    job_dir.mkdir(parents=True, exist_ok=True)
+    (job_dir / JOB_STATUS_FILENAME).write_text(
+        json.dumps({"status": status, "error": error}, ensure_ascii=False),
+        encoding="utf-8"
+    )
+
+def _read_status(job_dir: Path) -> dict:
+    status_path = job_dir / JOB_STATUS_FILENAME
+    if not status_path.exists():
+        return {"status": "unknown", "error": None}
+    return json.loads(status_path.read_text(encoding="utf-8"))
+
+def _background_generate(job_id: str, payload: dict):
+    job_dir = OUTPUT_DIR / job_id
+    try:
+        _write_status(job_dir, "processing")
+        # Heavy work starts here:
+        outputs = orchestrate_report(payload, forced_job_id=job_id)  # agents, charts, HTML
+        base_filename = outputs["id"]  # should equal job_id
+        html_path, pdf_path, docx_path = save_outputs(outputs["html"], base_filename, job_dir)
+        _write_status(job_dir, "ready")
+    except Exception as e:
+        _write_status(job_dir, "failed", str(e))
+
 # ------------------------------------------------------------
 # Flask app & routes
 # ------------------------------------------------------------
@@ -1207,55 +2216,141 @@ def health():
     ready = bool(_agents_client and _eng_agent and _malay_agent and _html_maker_agent and not _init_error)
     return {"status": "ok", "azure_ready": ready, "init_error": _init_error, "time": datetime.now().isoformat()}, 200
 
+# @app.post("/api/report")
+# @require_api_key  # protect generation endpoint
+# def api_report():
+#     """
+#     POST /api/report?format=(links|zip|pdf|docx|html)
+#     Body: JSON payload similar to the example below.
+#     """
+#     try:
+#         payload = request.get_json(force=True, silent=False) or {}
+#     except Exception:
+#         return jsonify({"error": "Invalid JSON body"}), 400
+
+#     payload.setdefault("generated_on", datetime.now().strftime("%Y-%m-%d"))
+
+#     # 1) Call agents to build content
+#     try:
+#         outputs = orchestrate_report(payload)
+#     except Exception as e:
+#         # 503: app is up, but backend (identity/agents) isn't ready
+#         return jsonify({"error": f"Agent orchestration failed: {e}"}), 503
+
+#     # 2) Persist artifacts (use orchestrator's id & dir)
+#     base_filename = outputs["id"]                           # NEW: reuse id
+#     job_dir = OUTPUT_DIR / base_filename                    # NEW: same dir where charts were saved
+
+#     try:
+#         html_path, pdf_path, docx_path = save_outputs(outputs["html"], base_filename, job_dir)
+#     except Exception as e:
+#         return jsonify({"error": f"Failed to convert or save outputs: {e}"}), 500
+
+#     fmt = (request.args.get("format") or "links").lower()
+
+#     # 3) Response modes
+#     if fmt == "links":
+#         return jsonify({
+#             "message": "Report generated.",
+#             "files": {
+#                 "html": f"/download/{base_filename}/{base_filename}.html",
+#                 "pdf": f"/download/{base_filename}/{base_filename}.pdf",
+#                 "docx": f"/download/{base_filename}/{base_filename}.docx"
+#             },
+#             "id": base_filename
+#         }), 200
+#     elif fmt in {"pdf", "docx", "html"}:
+#         file_map = {"pdf": pdf_path, "docx": docx_path, "html": html_path}
+#         file_path = file_map[fmt]
+#         if not file_path.exists():
+#             return jsonify({"error": f"{fmt.upper()} not found."}), 404
+#         return send_file(file_path, as_attachment=True, download_name=file_path.name)
+#     elif fmt == "zip":
+#         # Stream a ZIP containing all files
+#         mem = io.BytesIO()
+#         with zipfile.ZipFile(mem, mode="w", compression=zipfile.ZIP_DEFLATED) as zf:
+#             zf.write(html_path, arcname=html_path.name)
+#             zf.write(pdf_path, arcname=pdf_path.name)
+#             zf.write(docx_path, arcname=docx_path.name)
+#         mem.seek(0)
+#         return send_file(
+#             mem,
+#             mimetype="application/zip",
+#             as_attachment=True,
+#             download_name=f"{base_filename}.zip"
+#         )
+#     else:
+#         return jsonify({"error": "Invalid 'format' query. Use links|zip|pdf|docx|html"}), 400
+
 @app.post("/api/report")
 @require_api_key  # protect generation endpoint
 def api_report():
     """
     POST /api/report?format=(links|zip|pdf|docx|html)
-    Body: JSON payload similar to the example below.
+
+    Minimal change:
+    - If format=links: return 202 immediately (async pattern), and a background thread generates files.
+    - Otherwise: keep your original synchronous behavior for pdf|docx|html|zip.
     """
+    # Parse JSON body
     try:
         payload = request.get_json(force=True, silent=False) or {}
     except Exception:
         return jsonify({"error": "Invalid JSON body"}), 400
 
     payload.setdefault("generated_on", datetime.now().strftime("%Y-%m-%d"))
+    fmt = (request.args.get("format") or "links").lower()
 
+    # --- NEW: async branch for format=links (return fast) ---
+    if fmt == "links":
+        # Pre-allocate a stable job id so links are known immediately
+        title = payload.get("title") or "Generated Report"
+        job_id = f"{slugify(title)}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        job_dir = OUTPUT_DIR / job_id
+
+        # Write initial status and spawn background worker (no heavy work here)
+        _write_status(job_dir, "processing")
+        t = threading.Thread(target=_background_generate, args=(job_id, payload), daemon=True)
+        t.start()
+
+        # Build download links now (they will return 202/404 until ready)
+        files = {
+            "html": f"/download/{job_id}/{job_id}.html",
+            "pdf":  f"/download/{job_id}/{job_id}.pdf",
+            "docx": f"/download/{job_id}/{job_id}.docx",
+        }
+
+        # 202 Accepted with Location header for status polling
+        resp = jsonify({"id": job_id, "status": "processing", "files": files})
+        resp.status_code = 202
+        resp.headers["Location"] = f"/status/{job_id}"
+        return resp
+
+    # --- ORIGINAL synchronous flow kept for other formats ---
     # 1) Call agents to build content
     try:
-        outputs = orchestrate_report(payload)
+        outputs = orchestrate_report(payload, forced_job_id=job_id)  # heavy work happens synchronously
     except Exception as e:
         # 503: app is up, but backend (identity/agents) isn't ready
         return jsonify({"error": f"Agent orchestration failed: {e}"}), 503
 
     # 2) Persist artifacts (use orchestrator's id & dir)
-    base_filename = outputs["id"]                           # NEW: reuse id
-    job_dir = OUTPUT_DIR / base_filename                    # NEW: same dir where charts were saved
+    base_filename = outputs["id"]                           # reuse id
+    job_dir = OUTPUT_DIR / base_filename                    # same dir where charts were saved
 
     try:
         html_path, pdf_path, docx_path = save_outputs(outputs["html"], base_filename, job_dir)
     except Exception as e:
         return jsonify({"error": f"Failed to convert or save outputs: {e}"}), 500
 
-    fmt = (request.args.get("format") or "links").lower()
-
-    # 3) Response modes
-    if fmt == "links":
-        return jsonify({
-            "message": "Report generated.",
-            "files": {
-                "html": f"/download/{base_filename}/{base_filename}.html",
-                "pdf": f"/download/{base_filename}/{base_filename}.pdf",
-                "docx": f"/download/{base_filename}/{base_filename}.docx"
-            },
-            "id": base_filename
-        }), 200
-    elif fmt in {"pdf", "docx", "html"}:
+    # 3) Response modes (unchanged)
+    if fmt in {"pdf", "docx", "html"}:
         file_map = {"pdf": pdf_path, "docx": docx_path, "html": html_path}
         file_path = file_map[fmt]
         if not file_path.exists():
             return jsonify({"error": f"{fmt.upper()} not found."}), 404
         return send_file(file_path, as_attachment=True, download_name=file_path.name)
+
     elif fmt == "zip":
         # Stream a ZIP containing all files
         mem = io.BytesIO()
@@ -1270,23 +2365,56 @@ def api_report():
             as_attachment=True,
             download_name=f"{base_filename}.zip"
         )
+
     else:
         return jsonify({"error": "Invalid 'format' query. Use links|zip|pdf|docx|html"}), 400
+
+# @app.get("/download/<job_id>/<filename>")
+# @require_api_key
+# def download(job_id: str, filename: str):
+#     # Only allow reads within OUTPUT_DIR/job_id
+#     job_dir = OUTPUT_DIR / job_id
+#     file_path = job_dir / filename
+#     if not job_dir.exists() or not file_path.exists():
+#         abort(404)
+#     # Basic safety: ensure file_path is inside OUTPUT_DIR
+#     try:
+#         file_path.relative_to(OUTPUT_DIR)
+#     except ValueError:
+#         abort(403)
+#     return send_file(file_path, as_attachment=True, download_name=file_path.name)
 
 @app.get("/download/<job_id>/<filename>")
 @require_api_key
 def download(job_id: str, filename: str):
-    # Only allow reads within OUTPUT_DIR/job_id
     job_dir = OUTPUT_DIR / job_id
+    status = _read_status(job_dir).get("status")
+
+    if status not in {"ready", "failed"}:
+        # Not ready yet -> 202 or 404 (choose one). 202 encourages polling.
+        return jsonify({"id": job_id, "status": status}), 202
+
+    if status == "failed":
+        err = _read_status(job_dir).get("error")
+        return jsonify({"id": job_id, "status": "failed", "error": err}), 500
+
     file_path = job_dir / filename
     if not job_dir.exists() or not file_path.exists():
         abort(404)
-    # Basic safety: ensure file_path is inside OUTPUT_DIR
     try:
         file_path.relative_to(OUTPUT_DIR)
     except ValueError:
         abort(403)
     return send_file(file_path, as_attachment=True, download_name=file_path.name)
+
+@app.get("/status/<job_id>")
+@require_api_key
+def status(job_id: str):
+    job_dir = OUTPUT_DIR / job_id
+    s = _read_status(job_dir)
+    return jsonify({"id": job_id, **s}), 200
+
+
 
 if __name__ == "__main__":
     # Run Flask locally
@@ -1295,18 +2423,6 @@ if __name__ == "__main__":
     app.run(host=host, port=port, debug=True)
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1528,48 +2644,4 @@ POSTMAN PAYLOAD:
     }
   }
 }
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Requirements.txt:
-```
-azure-identity==1.25.0
-azure-ai-agents==1.1.0
-azure-ai-projects==1.0.0
-azure-core==1.36.0
-azure-storage-blob==12.27.0
-certifi==2025.10.5
-cffi==2.0.0
-charset-normalizer==3.4.4
-cryptography==46.0.3
-Flask==3.1.2
-gunicorn==23.0.0
-idna==3.11
-isodate==0.7.2
-pycparser==2.23
-pdfkit==1.0.0
-pypandoc==1.15
-Jinja2==3.1.6
-requests==2.32.5
-typing_extensions==4.15.0
-urllib3==2.5.0
-python-dotenv==1.1.1
-pdf2docx==0.5.8
-PyMuPDF==1.26.4
-matplotlib==3.8.0
-seaborn==0.13.0
-numpy==1.26.0
-playwright==1.*
 ```

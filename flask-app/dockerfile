@@ -1,0 +1,24 @@
+# Playwright base image with browsers & OS deps installed
+# (This image simplifies Chromium on Azure. If v1.55.0 tag is unavailable,
+# use the closest 'jammy' or 'noble' variant and run "python -m playwright install chromium".)
+FROM mcr.microsoft.com/playwright/python:v1.55.0-jammy
+
+ENV PYTHONUNBUFFERED=1
+WORKDIR /app
+
+# Copy and install deps (you've already removed pypandoc; good)
+COPY requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Ensure browsers match the Python package version
+RUN python -m playwright install chromium
+
+# Copy your Flask code (adjust names if different)
+COPY . /app
+
+# Default output dir (overridden by Azure App Settings below)
+ENV OUTPUT_DIR=/app/outputs \
+    PORT=8000
+
+EXPOSE 8000
+CMD [ "bash", "-lc", "gunicorn -w 4 -b 0.0.0.0:${PORT} app:app" ]
