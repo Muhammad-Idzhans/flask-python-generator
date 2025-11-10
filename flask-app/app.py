@@ -2638,8 +2638,8 @@ No part of this report may be reproduced, stored in a retrieval system, transmit
 PENDAHULUAN_BM = """
 Laporan Stok Harta Tanah menyebarkan maklumat berdasarkan kepada skop berikut:
 
-i. Stok sedia ada mengikut sub-sektor harta tanah iaitu kediaman, perdagangan, industri dan riadah.
-ii. Penawaran hadapan yang terdiri daripada data penawaran akan datang, mula pembinaan dan penawaran yang dirancang.
+i. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stok sedia ada mengikut sub-sektor harta tanah iaitu kediaman, perdagangan, industri dan riadah.
+ii. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Penawaran hadapan yang terdiri daripada data penawaran akan datang, mula pembinaan dan penawaran yang dirancang.
 
 Ingin dimaklumkan bahawa semua jadual data tersebut perlu dibaca seiring dengan catatan teknikal yang disertakan bersama laporan ini. Maklumat berkenaan harta tanah perdagangan iaitu kompleks perniagaan dikategorikan kepada pusat membeli belah, arked dan pasaraya besar manakala bagi pejabat binaan khas terdiri daripada pejabat kerajaan dan swasta.
 
@@ -2663,8 +2663,8 @@ Email : napic@jpph.gov.my
 FOREWORD_ENG = """
 The Property Market Stock Report disseminates informations on the following scopes:
 
-i. Existing inventories of properties on a sectorial basis namely residential, commercial, industry and leisure.
-ii. Future supply comprises Incoming Supply, Construction Starts and Planned Supply.
+i. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Existing inventories of properties on a sectorial basis namely residential, commercial, industry and leisure.
+ii. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Future supply comprises Incoming Supply, Construction Starts and Planned Supply.
 
 Please be informed that all the data tabulated should be read in line with NAPIC’s Technical Notes attached in the report. Information pertaining to commercial properties ie shopping complex is categorized into three sections ie shopping centre, arcade and hypermarket whilst for purpose built office designated for publicly owned and private ownership.
 
@@ -2952,7 +2952,7 @@ Laman Web : http://www.jpph.gov.my
 """
 
 TECHNICAL_NOTES_MALAY = """
-<div style="font-size:12px; line-height:1.6; text-align:justify;">  
+<div style="font-size:11px; line-height:1.6; text-align:justify;">  
   <p><strong><label style="margin-right: 15px;">1.0</label>Tempoh Kajian</strong><br/>
     <label style="display:block; padding-left:33px;">
         Laporan Stok Harta Tanah pada tahun {year} adalah seperti berikut:<br/>
@@ -3319,7 +3319,7 @@ TECHNICAL_NOTES_MALAY = """
 """
 
 TECHNICAL_NOTES_ENG = """
-<div style="font-size:12px; line-height:1.6; text-align:justify;">  
+<div style="font-size:11px; line-height:1.6; text-align:justify;">  
   <p><strong><label style="margin-right: 15px;">1.0</label>Review Periods</strong><br/>
     <label style="display:block; padding-left:33px;">
         The quarters in the {year} of the Property Stock Report is as follows:<br/>
@@ -3708,7 +3708,8 @@ INPUT
 OUTPUT (plain text, not HTML)
 Produce a structured report in this exact order:
 1) Title line (use the input 'title')
-2) Period & Generated On (e.g., “Period: Jan–Jun 2025 \n Generated on: 2025-10-28”)
+    1.1) Title in Malay line (use the input 'title_english')
+2) Report Type (use the input 'report_type')
 3) Executive Summary (2–4 concise paragraphs)
  - Summarize national totals and the key directional movements from 'trends' (e.g., completions up, new planned down).
  - Mention top contributing states where relevant.
@@ -3758,240 +3759,11 @@ Anda ialah penterjemah teknikal Bahasa Malaysia (BM) yang mematuhi gaya penulisa
 - Hasilkan teks (bukan HTML).
 """
 
-# HTML_MAKER_INSTRUCTIONS = f"""
-# You are an HTML builder for a printable A4 report.
-# - Input: English report text, Malay report text, and chart file URIs (file:///...).
-# - Output: A complete HTML document with:
-#  Page 1: Title and meta info (Period, Generated On).
-#     - Both title and meta info at the center of the page vertically and horizontally.
-#     - Title font-size: 3em
-
-#  Page 2: No title. {COPYRIGHT_BM!r} content on the left (wrap with <p></p>), {COPYRIGHT_ENG!r} content on the right (wrap with <p></p>). English version on the right is in italic.
-#     - The content should be at the center of the page vertically and horizontally.
-#     - The content should have margin-top 200mm.
-#     - Use this sturcture:
-#     <div class="two-column">
-#         <div class="column left">[COPYRIGHT_BM]</div>
-#         <div class="column right">[COPYRIGHT_ENG]</div>
-#     </div>
- 
-#  Page 3: Pendahuluan at the top as title (Use h3) at the center top instead start from left, and the content have to be just like from {PENDAHULUAN_BM!r}. Double <br/> for each blank line.
-
-#  Page 4: Foreword at the top as title (Use h3) at the center top instead start from left, and the content have to be just like from {FOREWORD_ENG!r}. Content and title in italic.
-
-#  Page 5: Main title is "RESIDENTIAL PROPERTY STOCK REPORT" at the top center (use h4). Put margin-below 10px for this h4 title.
-#     - Malay content on the left, english content on the right.
-#     - "1.0 HARTA TANAH KEDIAMAN" and "1.0 RESIDENTIAL PROPERTY" as title is bold (use h3). Align to left.
-#     - Residential Property Stock Report Content without the title from the content.
-#     - Content should be wrap in <p></p>
-#     - Then render these four charts below the narrative using ... tags (do NOT inline base64):
-#         <div style="margin-top: 10px;>
-#             {{ charts.residential.existing_by_state }}
-#         </div>
-#         <div>
-#             {{ charts.residential.supply_by_state }}
-#         </div>
-#         <div>
-#             {{ charts.residential.trends }}
-#         </div>
-#     - These graphs picture should be at the center horizontally.
-#     - These graphs picture, put style="width: 800px; margin-bottoms: 30px;"
-#     - The graph pictures should have thin black borders at least 2px.
-
-#  Page 6: Main title is "SHOP PROPERTY STOCK REPORT" at the top center (use h4). Put margin-below 10px for this h4 title.
-#     - Malay content on the left, english content on the right.
-#     - "2.0 KEDAI" and "2.0 SHOP" as title is bold (use h3). Align to left.
-#     - Shop Property Stock Report Content without the title from the content.
-#     - Content should be wrap in <p></p>
-#     - Then render these four charts below the narrative using ... tags (do NOT inline base64):
-#         <div style="margin-top: 10px;">
-#             {{ charts.residential.shop_existing_by_state }}
-#         </div>
-#         <div>
-#             {{ charts.residential.shop_supply_by_state }}
-#         </div>
-#         <div>
-#             {{ charts.residential.shop_trends }}
-#         </div>
-#     - These graphs picture should be at the center horizontally.
-#     - These graphs picture, put style="width: 800px; margin-bottoms: 30px;"
-#     - The graph pictures should have thin black borders at least 2px.
-
-#  Page 7: Main title is "SERVICED APARTMENT PROPERTY STOCK REPORT" at the top center (use h4). Put margin-below 20px for this h4 title.
-#     - Malay content on the left, english content on the right.
-#     - "3.0 PANGSAPURI KHIDMAT" and "3.0 SERVICED APARTMENT" as title is bold (use h3). Align to left.
-#     - Service Apartment Property Stock Report Content without the title from the content.
-#     - Content should be wrap in <p></p>
-#     - Then render these four charts below the narrative using ... tags (do NOT inline base64):
-#         <div style="margin-top: 10px;>
-#             {{ charts.residential.servap_existing_by_state }}
-#         </div>
-#         <div>
-#             {{ charts.residential.servap_supply_by_state }}
-#         </div>
-#         <div>
-#             {{ charts.residential.servap_trends }}
-#         </div>
-#     - These graphs picture should be at the center horizontally.
-#     - These graphs picture, put style="width: 800px; margin-bottoms: 30px;"
-#     - The graph pictures should have thin black borders at least 2px.
-
-#  Page 8: Main title is "SHOPPING COMPLEX PROPERTY STOCK REPORT" at the top center (use h4). Put margin-below 10px for this h4 title.
-#     - Malay content on the left, english content on the right.
-#     - "4.0 KOMPLEKS PERNIAGAAN" and "4.0 SHOPPING COMPLEX" as title is bold (use h3). Align to left.
-#     - Shopping Complex Report Content without the title from the content.
-#     - Content should be wrap in <p></p>
-#     - Then render these four charts below the narrative using ... tags (do NOT inline base64):
-#         <div style="margin-top: 10px;>
-#             {{ charts.residential.shopcx_existing_space_by_state }}
-#         </div>
-#         <div>
-#             {{ charts.residential.shopcx_supply_space_by_state }}
-#         </div>
-#         <div>
-#             {{ charts.residential.shopcx_trends }}
-#         </div>
-#     - These graphs picture should be at the center horizontally.
-#     - These graphs picture, put style="width: 800px; margin-bottoms: 30px;"
-#     - The graph pictures should have thin black borders at least 2px.
-
-#  Page 9: Main title is "PURPOSE-BUILT OFFICE PROPERTY STOCK REPORT" at the top center (use h4). Put margin-below 10px for this h4 title.
-#     - Malay content on the left, english content on the right.
-#     - "5.0 PEJABAT BINAAN KHAS" and "5.0 PURPOSE-BUILT OFFICE" as title is bold (use h3). Align to left.
-#     - Purpose-Built Offi Stock Report Content without the title from the content.
-#     - Content should be wrap in <p></p>
-#     - Then render these four charts below the narrative using ... tags (do NOT inline base64):
-#         <div style="margin-top: 10px;>
-#             {{ charts.residential.pbo_existing_space_by_state }}
-#         </div>
-#         <div>
-#             {{ charts.residential.pbo_supply_space_by_state }}
-#         </div>
-#         <div>
-#             {{ charts.residential.pbo_trends }}
-#         </div>
-#     - These graphs picture should be at the center horizontally.
-#     - These graphs picture, put style="width: 800px; margin-bottoms: 30px;"
-#     - The graph pictures should have thin black borders at least 2px.
-
-#  Page 10: Main title is "INDUSTRIAL PROPERTY STOCK REPORT" at the top center (use h4). Put margin-below 10px for this h4 title.
-#     - Malay content on the left, english content on the right.
-#     - "6.0 HARTA TANAH INDUSTRI" and "6.0 INDUSTRIAL PROPERTY" as title is bold (use h3). Align to left.
-#     - Industrial Property Stock Report Content without the title from the content.
-#     - Content should be wrap in <p></p>
-#     - Then render these four charts below the narrative using ... tags (do NOT inline base64):
-#         <div style="margin-top: 10px;>
-#             {{ charts.residential.industrial_existing_by_state }}
-#         </div>
-#         <div>
-#             {{ charts.residential.industrial_supply_by_state }}
-#         </div>
-#         <div>
-#             {{ charts.residential.industrial_trends }}
-#         </div>
-#     - These graphs picture should be at the center horizontally.
-#     - These graphs picture, put style="width: 800px; margin-bottoms: 30px;"
-#     - The graph pictures should have thin black borders at least 2px.
-
-#  Page 11: Main title is "LEISURE PROPERTY PROPERTY STOCK REPORT" at the top center (use h4). Put margin-below 10px for this h4 title.
-#     - Malay content on the left, english content on the right.
-#     - "7.0 HARTA TANAH RIADAH" and "7.0 LEISURE PROPERTY " as title is bold (use h3). Align to left.
-#     - Leisure Property Stock Report Content without the title from the content.
-#     - Content should be wrap in <p></p>
-#     - Then render these four charts below the narrative using ... tags (do NOT inline base64):
-#         <div style="margin-top: 10px;>
-#             {{ charts.residential.existing_by_state }}
-#         </div>
-#         <div>
-#             {{ charts.residential.supply_by_state }}
-#         </div>
-#         <div>
-#             {{ charts.residential.trends }}
-#         </div>
-#     - These graphs picture should be at the center horizontally.
-#     - These graphs picture, put style="width: 800px; margin-bottoms: 30px;"
-#     - The graph pictures should have thin black borders at least 2px.
-#     - No break-page after this page.
-
- 
-# Page 12: Render a full-bleed page with #bfdfff background.
-#     - Use this exact structure:
-#     <div class="full-bg-page">
-#         <div class="vcenter">
-#         <div>
-#             <h1 style="font-size:3em;">Catatan Teknikal</h1>
-#             <h1 style="font-size:2em">Technical Notes</h1>
-#         </div>
-#         </div>
-#     </div>
-#     - No break-page at the top of this page.
-
-# Page 13: No title. {TECHNICAL_NOTES_MALAY!r} content on the left (wrap with <p></p>), {TECHNICAL_NOTES_ENG!r} content on the right (wrap with <p></p>).
-#     - Contenty font-size: 15px
-#     - English version on the right is in italic.
-#     - "CATATAN TEKNIKAL" and "TECHNICAL NOTES" as title is bold (use h5). Align to left.
-#     - Use this exact structure:
-#     <div class="two-column">
-#         <div class="column left">
-#             [CATATAN TEKNIKAL title in h5 (bold)]
-#             [TECHNICAL_NOTES_MALAY]
-#         </div>
-#         <div class="column right">
-#             [TECHNICAL NOTES title in h5 (bold)]
-#             [TECHNICAL_NOTES_ENG]
-#         </div>
-#     </div>
-
-# Page 14: No title. {GLOSSARY_MALAY!r} content on the left (wrap with <p></p>), {GLOSSARY_ENG!r} content on the right (wrap with <p></p>).
-#     - Contenty font-size: 15px
-#     - English version on the right is in italic.
-#     - "Glosari " and "Glossary" as title is bold (use h3). Align to left.
-#     - Use this structure:
-#     <div class="two-column">
-#         <div class="column left">
-#             [Glosari title in h3 (bold)]
-#             [GLOSSARY_MALAY]
-#         </div>
-#         <div class="column right">
-#             [Glossary title in h3 (bold) and padding left 40px]
-#             [GLOSSARY_ENG]
-#         </div>
-#     </div>
-
-# Page 15: Title is "Cawangan JPPH Di Seluruh Negara / JPPH Branch Offices". The "/ JPPH Branch Offices" should be italic.
-#     - The title of the page use h3.
-#     - Below the title, render the entire branch list as ONE block (not two columns).
-#     - All content after title font-size is 12px.
-#     - No border on the content.
-#     - First row, put each of the {OFFICE_BRANCH_1!r} content in a column. Should be in 3 columns. Bold the "IBU PEJABAT NAPIC", "PERAK", "TERENGGANU". Give 20px gap between column. For the whole block, put padding-bottom 10px. Font-size: 12px
-#     - Second row, put each of the {OFFICE_BRANCH_2!r} content in a column. Should be in 3 columns. Bold the "WILAYAH PERSEKUTUAN", "NEGERI SEMBILAN", "KELANTAN". Give 20px gap between column. For the whole block, put padding-bottom 10px. Font-size: 12px
-#     - Third row, put each of the {OFFICE_BRANCH_3!r} content in a column. Should be in 3 columns. Bold the "SELANGOR", "MELAKA", "PERLIS". Give 20px gap between column. For the whole block, put padding-bottom 10px. Font-size: 12px
-#     - Fourth row, put each of the {OFFICE_BRANCH_4!r} content in a column. Should be in 3 columns. Bold the "JOHOR", "KEDAH", "SABAH". Give 20px gap between column. For the whole block, put padding-bottom 10px. Font-size: 12px
-#     - Fifth row, put each of the {OFFICE_BRANCH_5!r} content in a column. Should be in 3 columns. Bold the "PULAU PINANG", "PAHANG", "SARAWAK". Give 20px gap between column. For the whole block, put padding-bottom 10px. Font-size: 12px
-#     - Sixth row (not included as one block as the other), put {OFFICE_BRANCH_ENQUIRIES!r} at the center horizontally and text center. Padding-top: 100px, font-size: 15px. Italic the 'For any enquiries, please contact:'.
-
-
-# - For every bilingual section, use EXACTLY this structure:
-#  <div class="two-column">
-#     <div class="column left">[Malay content]</div>
-#     <div class="column right">[English content]</div>
-#  </div>
-# - For the english content, make it italic.
-# - Do NOT use CSS columns or modern flexbox. The CSS provided uses table/table-cell layout.
-# - Use the provided CSS styles from {BASE_CSS!r} for overall formatting.
-# - Insert <div class="page-break"></div> between pages.
-# - Output only valid HTML starting with <!doctype html>.
-# - All paragraphs should be justified.
-# - NEVER use Markdown code fences or language tags (e.g., ```html). Return ONLY raw HTML starting with <!doctype html>.
-# - Don't make the font too small.
-# - Follow all instructions give.
-# """
-
 HTML_MAKER_INSTRUCTIONS_1 = f"""
 You are an HTML builder for a printable A4 report.
 - Input: English report text, Malay report text, and chart file URIs (file:///...).
 - Output: A complete HTML document with:
-    Page 1: Title and meta info (Period, Generated On).
+    Page 1: Title, English Title and Report Type.
         - Both title and meta info at the center of the page vertically and horizontally.
         - Page height is 297mm, width 100%
         - Title font-size: 2em
@@ -4009,9 +3781,9 @@ You are an HTML builder for a printable A4 report.
                         </div>
                         
                         <div style="text-align: center;">
-                            <h1 style="font-size:3em; color:white;">[Report Title]</h1>
-                            <div style="font-size:2em; margin: 16px 0; color:white;">[Period]</div>
-                            <div style="font-size:2em; margin: 16px 0; color:white;">[Generated On</div>
+                            <h1 style="font-size:2em; color:white; text-transform: uppercase;"><strong>[Report Title]</strong></h1>
+                            <h1 style="font-size:25px; color:white;">[Report Title English]</h1>
+                            <h1 style="font-size:2em; color:white; text-transform: uppercase;">[Report Type]</h1>
                         </div>
                         <!-- <img src="assets/kementerian_kewangan_logo.jpg" style="height: 100px; width: 100px;"/> -->
                         <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 40px;">
@@ -4031,7 +3803,7 @@ You are an HTML builder for a printable A4 report.
         - The content should be at the center of the page vertically and horizontally.
         - The content should have margin-top 180mm.
         - Use this exact structure:
-            <div style="margin-top= 180mm; height: 100%; width: 100%">
+            <div style="margin-top: 180mm; height: 100%; width: 100%">
                 <div class="two-column">
                     <div class="column left" style="font-size: 12px;">[COPYRIGHT_BM]</div>
                     <div class="column right" style="font-size: 12px;">[COPYRIGHT_ENG]</div>
@@ -4229,19 +4001,19 @@ You are an HTML builder for a printable A4 report.
         - Content font-size: 11px
         - English version on the right is in italic.
         - "CATATAN TEKNIKAL" and "TECHNICAL NOTES" as title is bold (use h5). Align to left. margin-top: 0.
-        - Use this exact structure:
-        <div class="two-column">
-            <div class="column left">
-                [CATATAN TEKNIKAL all capital letter title in h5 (bold)]
-                [TECHNICAL_NOTES_MALAY, font-size: 11px]
+        - Use this exact structure, don't change any of the html. Keep the original:
+            <div class="two-column">
+                <div class="column left">
+                    [CATATAN TEKNIKAL all capital letter title in h5 (bold)]
+                    [TECHNICAL_NOTES_MALAY, font-size: 11px]
+                </div>
+                <div class="column right">
+                    [TECHNICAL NOTES title all capital letter in h5 (bold)]
+                    [TECHNICAL_NOTES_ENG, font-size: 11px]
+                </div>
             </div>
-            <div class="column right">
-                [TECHNICAL NOTES title all capital letter in h5 (bold)]
-                [TECHNICAL_NOTES_ENG, font-size: 11px]
-            </div>
-        </div>
         - Each content font size is 11px.
-        - For the Technical notes and catatan teknikal, use exactly as what is being provided in the {TECHNICAL_NOTES_ENG!r} and {TECHNICAL_NOTES_MALAY!r} especially as it's HTML structure.
+        - For the Technical notes and Catatan Teknikal, use exactly as what is being provided in the {TECHNICAL_NOTES_ENG!r} and {TECHNICAL_NOTES_MALAY!r} especially as it's HTML structure.
         - Don't do any changes to it's HTML Structure.
 
     Page 14: No title. {GLOSSARY_MALAY!r} content on the left (wrap with <p></p>), {GLOSSARY_ENG!r} content on the right (wrap with <p></p>).
@@ -4385,6 +4157,16 @@ def orchestrate_report(payload: dict, forced_job_id: str | None = None) -> dict:
         system_hint="Terjemah ke Bahasa Malaysia dengan gaya rasmi mengikut arahan."
     )
 
+    # --- NEW: Inject year into technical notes ---
+    tn_year = int(payload.get("technical_notes_version") or payload.get("year") or datetime.now().year)
+    tech_notes_eng = TECHNICAL_NOTES_ENG.format(year=tn_year)
+    tech_notes_malay = TECHNICAL_NOTES_MALAY.format(year=tn_year)
+    
+    instr3 = HTML_MAKER_INSTRUCTIONS_3.replace(
+        repr(TECHNICAL_NOTES_ENG), repr(tech_notes_eng)
+    ).replace(
+        repr(TECHNICAL_NOTES_MALAY), repr(tech_notes_malay)
+    )
     
     # Allow both "cover_image" or "background-image" as payload keys
     cover_key = payload.get("cover_image") or payload.get("background-image")
@@ -4401,6 +4183,7 @@ def orchestrate_report(payload: dict, forced_job_id: str | None = None) -> dict:
         base_filename = forced_job_id
     else:
         title = payload.get("title") or "Generated Report"
+        title_english = payload.get("title_english") or "Laporan Dihasilkan"
         base_filename = f"{slugify(title)}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
 
     job_dir = OUTPUT_DIR / base_filename
@@ -4418,8 +4201,8 @@ def orchestrate_report(payload: dict, forced_job_id: str | None = None) -> dict:
     # 4) Prepare scoped payloads (minimal inputs for each agent)
     front_payload = {
         "title": payload.get("title", ""),
-        "period": payload.get("period", ""),
-        "generated_on": payload.get("generated_on", datetime.now().strftime("%Y-%m-%d")),
+        "title_english": payload.get("title_english", ""),
+        "report_type": payload.get("report_type", ""),
         "rows": payload.get("rows", []),
         "charts": charts,
         "cover_image_uri": cover_image_uri,
@@ -4456,6 +4239,7 @@ def orchestrate_report(payload: dict, forced_job_id: str | None = None) -> dict:
         raise RuntimeError(f"[html-agent-2] {e}")
     
     try:
+        _agents_client.update_agent(agent_id=_html_back_agent.id, instructions=instr3)
         back_html = _strip_code_fences(run_agent_text(
             _html_back_agent, back_payload, "Generate pages 12–15 full HTML"
         ))

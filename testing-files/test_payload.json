@@ -1,0 +1,36 @@
+{
+    "title": "Laporan Stok Harta Tanah",
+    "title_english": "Property Stock Report",
+    "period": "Jan–Jun 2025",
+    "report_type": "H1 2025",
+    "generated_on": "2025-11-10",
+    "technical_notes_version": "2024",
+    "sections":{
+        "industrial": {
+            "by_state": [
+                { "state": "WP Kuala Lumpur", "existing": 5138, "incoming": 0, "planned": 37 },
+                { "state": "WP Putrajaya", "existing": 48, "incoming": 0, "planned": 0 },
+                { "state": "WP Labuan", "existing": 650, "incoming": 41, "planned": 0 },
+                { "state": "Selangor", "existing": 43295, "incoming": 1472, "planned": 1095 },
+                { "state": "Johor", "existing": 19533, "incoming": 619, "planned": 189 },
+                { "state": "Pulau Pinang", "existing": 9952, "incoming": 221, "planned": 2 },
+                { "state": "Perak", "existing": 8524, "incoming": 211, "planned": 539 },
+                { "state": "Negeri Sembilan", "existing": 5576, "incoming": 838, "planned": 553 },
+                { "state": "Melaka", "existing": 7309, "incoming": 261, "planned": 249 },
+                { "state": "Kedah", "existing": 3887, "incoming": 386, "planned": 130 },
+                { "state": "Pahang", "existing": 3686, "incoming": 72, "planned": 193 },
+                { "state": "Terengganu", "existing": 910, "incoming": 56, "planned": 1 },
+                { "state": "Kelantan", "existing": 634, "incoming": 15, "planned": 28 },
+                { "state": "Perlis", "existing": 315, "incoming": 182, "planned": 19 },
+                { "state": "Sabah", "existing": 6432, "incoming": 291, "planned": 291 },
+                { "state": "Sarawak", "existing": 7641, "incoming": 199, "planned": 203 }
+            ],
+            "trends": {
+                "half_year": ["H1 2022","H2 2022","H1 2023","H2 2023","H1 2024","H2 2024","H1 2025"],
+                "completions": [118,471,260,631,149,580,353],
+                "starts": [265,272,413,803,301,1013,823],
+                "new_planned": [118,350,478,1372,148,1102,496]
+            }
+        }
+    }
+}

@@ -1,0 +1,207 @@
+{
+  "title": "Laporan Stok Harta Tanah",
+  "title_english": "Property Stock Report",
+  "period": "Jan–Jun 2025",
+  "report_type": "H1 2025",
+  "generated_on": "2025-10-28",
+  "source": "NAPIC Laporan Stok Harta Tanah H1 2025",
+  "technical_notes_version": "2024",
+  "executive_summary_seed": "Malaysia’s property stock remained stable in H1 2025, with landed homes dominating existing supply while strata increases its share of pipeline. Construction activity focused on completions over new planning.",
+  "sections": {
+    "residential": {
+      "totals": { "existing": 6411305, "incoming": 375944, "planned": 314870 },
+      "by_state": [
+        { "state": "WP Kuala Lumpur", "existing": 567469, "incoming": 56953, "planned": 54196 },
+        { "state": "WP Putrajaya", "existing": 20251, "incoming": 28, "planned": 3224 },
+        { "state": "WP Labuan", "existing": 14039, "incoming": 428, "planned": 0 },
+        { "state": "Selangor", "existing": 1745057, "incoming": 83704, "planned": 61939 },
+        { "state": "Johor", "existing": 934439, "incoming": 38510, "planned": 43964 },
+        { "state": "Pulau Pinang", "existing": 568496, "incoming": 29643, "planned": 18923 },
+        { "state": "Perak", "existing": 550730, "incoming": 35406, "planned": 28515 },
+        { "state": "Negeri Sembilan", "existing": 318094, "incoming": 24300, "planned": 15968 },
+        { "state": "Melaka", "existing": 231136, "incoming": 15789, "planned": 19836 },
+        { "state": "Kedah", "existing": 358177, "incoming": 18674, "planned": 11537 },
+        { "state": "Pahang", "existing": 313071, "incoming": 19813, "planned": 22252 },
+        { "state": "Terengganu", "existing": 120195, "incoming": 10690, "planned": 4010 },
+        { "state": "Kelantan", "existing": 96406, "incoming": 7145, "planned": 2841 },
+        { "state": "Perlis", "existing": 28164, "incoming": 758, "planned": 1737 },
+        { "state": "Sabah", "existing": 247802, "incoming": 16259, "planned": 20159 },
+        { "state": "Sarawak", "existing": 297779, "incoming": 17844, "planned": 5769 }
+      ],
+      "composition": {
+        "landed": { "existing": 4386613, "incoming": 213659, "planned": 169564, "share_pct": { "existing": 68.4, "incoming": 56.8, "planned": 53.9 } },
+        "stratified": { "existing": 2024692, "incoming": 162285, "planned": 145306, "share_pct": { "existing": 31.6, "incoming": 43.2, "planned": 46.1 } }
+      },
+      "trends": {
+        "half_year": ["H1 2022","H2 2022","H1 2023","H2 2023","H1 2024","H2 2024","H1 2025"],
+        "completions": [31699,40282,28412,46501,31572,82135,42431],
+        "starts": [41600,56204,41101,47013,41555,106236,43556],
+        "new_planned": [36997,52118,31139,50192,40505,100461,24418],
+        "yoy": { "completions_pct": 34.4, "starts_pct": 4.8, "new_planned_pct": -39.7 }
+      }
+    },
+    "shop": {
+      "by_state": [
+        { "state": "WP Kuala Lumpur", "existing": 30456, "incoming": 449, "planned": 840 },
+        { "state": "WP Putrajaya", "existing": 538, "incoming": 0, "planned": 48 },
+        { "state": "WP Labuan", "existing": 1073, "incoming": 30, "planned": 0 },
+        { "state": "Selangor", "existing": 111263, "incoming": 5457, "planned": 2992 },
+        { "state": "Johor", "existing": 98031, "incoming": 4857, "planned": 4731 },
+        { "state": "Pulau Pinang", "existing": 39493, "incoming": 1149, "planned": 1799 },
+        { "state": "Perak", "existing": 58923, "incoming": 2047, "planned": 2453 },
+        { "state": "Negeri Sembilan", "existing": 27135, "incoming": 1887, "planned": 1352 },
+        { "state": "Melaka", "existing": 24599, "incoming": 1027, "planned": 1330 },
+        { "state": "Kedah", "existing": 31459, "incoming": 860, "planned": 803 },
+        { "state": "Pahang", "existing": 26385, "incoming": 1979, "planned": 2331 },
+        { "state": "Terengganu", "existing": 8522, "incoming": 578, "planned": 425 },
+        { "state": "Kelantan", "existing": 14742, "incoming": 1037, "planned": 341 },
+        { "state": "Perlis", "existing": 4655, "incoming": 37, "planned": 77 },
+        { "state": "Sabah", "existing": 33623, "incoming": 2182, "planned": 2174 },
+        { "state": "Sarawak", "existing": 39520, "incoming": 1270, "planned": 765 }
+      ],
+      "trends": {
+        "half_year": ["H1 2022","H2 2022","H1 2023","H2 2023","H1 2024","H2 2024","H1 2025"],
+        "completions": [1771,2229,1427,3371,933,2911,1491],
+        "starts": [1270,1476,1618,4165,2163,4952,1609],
+        "new_planned": [1268,2017,1280,4578,1613,5677,1166]
+      }
+    },
+    "serviced_apartment": {
+      "by_state": [
+        { "state": "WP Kuala Lumpur", "existing": 143598, "incoming": 35264, "planned": 56989 },
+        { "state": "WP Putrajaya", "existing": 1204, "incoming": 671, "planned": 940 },
+        { "state": "WP Labuan", "existing": 0, "incoming": 0, "planned": 0 },
+        { "state": "Selangor", "existing": 137999, "incoming": 68651, "planned": 18106 },
+        { "state": "Johor", "existing": 109425, "incoming": 27616, "planned": 26267 },
+        { "state": "Pulau Pinang", "existing": 10751, "incoming": 8882, "planned": 6999 },
+        { "state": "Perak", "existing": 1567, "incoming": 1104, "planned": 408 },
+        { "state": "Negeri Sembilan", "existing": 16183, "incoming": 1286, "planned": 292 },
+        { "state": "Melaka", "existing": 10820, "incoming": 6344, "planned": 4255 },
+        { "state": "Kedah", "existing": 637, "incoming": 0, "planned": 433 },
+        { "state": "Pahang", "existing": 10085, "incoming": 3059, "planned": 6475 },
+        { "state": "Terengganu", "existing": 276, "incoming": 1046, "planned": 0 },
+        { "state": "Kelantan", "existing": 1694, "incoming": 940, "planned": 0 },
+        { "state": "Perlis", "existing": 0, "incoming": 0, "planned": 0 },
+        { "state": "Sabah", "existing": 3353, "incoming": 1297, "planned": 3793 },
+        { "state": "Sarawak", "existing": 1537, "incoming": 4267, "planned": 4791 }
+      ],
+      "trends": {
+        "half_year": ["H1 2022","H2 2022","H1 2023","H2 2023","H1 2024","H2 2024","H1 2025"],
+        "completions": [9677,14270,7684,27032,15518,33750,7973],
+        "starts": [6982,13757,4967,17952,10363,39011,15625],
+        "new_planned": [6022,8369,2842,19452,13311,40105,6352]
+      }
+    },
+    "shopping_complex": {
+      "by_state": [
+        {
+          "state": "WP Kuala Lumpur",
+          "existing_space_sm": 3429504,
+          "incoming_space_sm": 286297,
+          "planned_space_sm": 196691,
+          "types_space_sm": { "shopping_centre": 3018288, "arcade": 244395, "hypermarket": 166821 }
+        },
+        { "state": "WP Putrajaya", "existing_space_sm": 539, "incoming_space_sm": 29277, "planned_space_sm": 0, "types_space_sm": { "shopping_centre": 53484, "arcade": 1380, "hypermarket": 0 } },
+        { "state": "WP Labuan", "existing_space_sm": 262, "incoming_space_sm": 0, "planned_space_sm": 0, "types_space_sm": { "shopping_centre": 26197, "arcade": 2273, "hypermarket": 0 } },
+        { "state": "Selangor", "existing_space_sm": 3752957, "incoming_space_sm": 289607, "planned_space_sm": 0, "types_space_sm": { "shopping_centre": 2995617, "arcade": 62041, "hypermarket": 695299 } },
+        { "state": "Johor", "existing_space_sm": 2417866, "incoming_space_sm": 25916, "planned_space_sm": 0, "types_space_sm": { "shopping_centre": 1815819, "arcade": 97244, "hypermarket": 504803 } },
+        { "state": "Pulau Pinang", "existing_space_sm": 1931871, "incoming_space_sm": 25040, "planned_space_sm": 96421, "types_space_sm": { "shopping_centre": 1328757, "arcade": 298112, "hypermarket": 305002 } },
+        { "state": "Perak", "existing_space_sm": 1062467, "incoming_space_sm": 8783, "planned_space_sm": 0, "types_space_sm": { "shopping_centre": 521782, "arcade": 42206, "hypermarket": 417469 } },
+        { "state": "Negeri Sembilan", "existing_space_sm": 581186, "incoming_space_sm": 7345, "planned_space_sm": 0, "types_space_sm": { "shopping_centre": 268021, "arcade": 77620, "hypermarket": 235545 } },
+        { "state": "Melaka", "existing_space_sm": 590078, "incoming_space_sm": 57245, "planned_space_sm": 20031, "types_space_sm": { "shopping_centre": 426655, "arcade": 0, "hypermarket": 153172 } },
+        { "state": "Kedah", "existing_space_sm": 419477, "incoming_space_sm": 0, "planned_space_sm": 15373, "types_space_sm": { "shopping_centre": 418124, "arcade": 18290, "hypermarket": 153664 } },
+        { "state": "Pahang", "existing_space_sm": 269881, "incoming_space_sm": 6276, "planned_space_sm": 15373, "types_space_sm": { "shopping_centre": 351966, "arcade": 11613, "hypermarket": 55898 } },
+        { "state": "Terengganu", "existing_space_sm": 210288, "incoming_space_sm": 7845, "planned_space_sm": 0, "types_space_sm": { "shopping_centre": 167739, "arcade": 48175, "hypermarket": 53967 } },
+        { "state": "Kelantan", "existing_space_sm": 391750, "incoming_space_sm": 0, "planned_space_sm": 0, "types_space_sm": { "shopping_centre": 187682, "arcade": 73722, "hypermarket": 130346 } },
+        { "state": "Perlis", "existing_space_sm": 57959, "incoming_space_sm": 30418, "planned_space_sm": 0, "types_space_sm": { "shopping_centre": 12492, "arcade": 28708, "hypermarket": 16759 } },
+        { "state": "Sabah", "existing_space_sm": 782548, "incoming_space_sm": 61415, "planned_space_sm": 23509, "types_space_sm": { "shopping_centre": 679460, "arcade": 27386, "hypermarket": 75702 } },
+        { "state": "Sarawak", "existing_space_sm": 981457, "incoming_space_sm": 41676, "planned_space_sm": 0, "types_space_sm": { "shopping_centre": 965977, "arcade": 1393, "hypermarket": 95097 } }
+      ],
+      "trends": {
+        "half_year": ["H1 2022","H2 2022","H1 2023","H2 2023","H1 2024","H2 2024","H1 2025"],
+        "completions_space_sm": [94482,168997,21268,197560,55508,215981,105127],
+        "starts_space_sm": [81772,25165,0,0,17170,14000,9405],
+        "new_planned_space_sm": [0,69960,0,0,0,4986,18279]
+      }
+    },
+    "purpose_built_office": {
+      "by_state": [
+        { "state": "WP Kuala Lumpur", "existing_space_sm": 9637185, "existing_buildings_total": 419, "incoming_space_sm": 518461, "planned_space_sm": 736092 },
+        { "state": "WP Putrajaya", "existing_space_sm": 410574, "existing_buildings_total": 12, "incoming_space_sm": 2132071, "planned_space_sm": 39875 },
+        { "state": "WP Labuan", "existing_space_sm": 51247, "existing_buildings_total": 5, "incoming_space_sm": 15459, "planned_space_sm": 0 },
+        { "state": "Selangor", "existing_space_sm": 4380874, "existing_buildings_total": 255, "incoming_space_sm": 318585, "planned_space_sm": 0 },
+        { "state": "Johor", "existing_space_sm": 949628, "existing_buildings_total": 90, "incoming_space_sm": 418515, "planned_space_sm": 33817 },
+        { "state": "Pulau Pinang", "existing_space_sm": 734399, "existing_buildings_total": 102, "incoming_space_sm": 221000, "planned_space_sm": 42488 },
+        { "state": "Perak", "existing_space_sm": 244249, "existing_buildings_total": 50, "incoming_space_sm": 311666, "planned_space_sm": 0 },
+        { "state": "Negeri Sembilan", "existing_space_sm": 131954, "existing_buildings_total": 28, "incoming_space_sm": 175608, "planned_space_sm": 0 },
+        { "state": "Melaka", "existing_space_sm": 198691, "existing_buildings_total": 33, "incoming_space_sm": 184086, "planned_space_sm": 0 },
+        { "state": "Kedah", "existing_space_sm": 196012, "existing_buildings_total": 43, "incoming_space_sm": 177815, "planned_space_sm": 0 },
+        { "state": "Pahang", "existing_space_sm": 185794, "existing_buildings_total": 43, "incoming_space_sm": 230171, "planned_space_sm": 0 },
+        { "state": "Terengganu", "existing_space_sm": 119503, "existing_buildings_total": 30, "incoming_space_sm": 250037, "planned_space_sm": 31760 },
+        { "state": "Kelantan", "existing_space_sm": 122866, "existing_buildings_total": 27, "incoming_space_sm": 160590, "planned_space_sm": 0 },
+        { "state": "Perlis", "existing_space_sm": 28139, "existing_buildings_total": 6, "incoming_space_sm": 72978, "planned_space_sm": 0 },
+        { "state": "Sabah", "existing_space_sm": 528635, "existing_buildings_total": 63, "incoming_space_sm": 284400, "planned_space_sm": 37498 },
+        { "state": "Sarawak", "existing_space_sm": 553630, "existing_buildings_total": 76, "incoming_space_sm": 326924, "planned_space_sm": 0 }
+      ],
+      "trends": {
+        "half_year": ["H1 2022","H2 2022","H1 2023","H2 2023","H1 2024","H2 2024","H1 2025"],
+        "completions_space_sm": [114716,307257,60990,337745,56948,172322,155772],
+        "starts_space_sm": [0,294560,0,0,11305,41725,40180],
+        "new_planned_space_sm": [290610,121812,8330,0,0,0,5136]
+      }
+    },
+    "industrial": {
+      "by_state": [
+        { "state": "WP Kuala Lumpur", "existing": 5138, "incoming": 0, "planned": 37 },
+        { "state": "WP Putrajaya", "existing": 48, "incoming": 0, "planned": 0 },
+        { "state": "WP Labuan", "existing": 650, "incoming": 41, "planned": 0 },
+        { "state": "Selangor", "existing": 43295, "incoming": 1472, "planned": 1095 },
+        { "state": "Johor", "existing": 19533, "incoming": 619, "planned": 189 },
+        { "state": "Pulau Pinang", "existing": 9952, "incoming": 221, "planned": 2 },
+        { "state": "Perak", "existing": 8524, "incoming": 211, "planned": 539 },
+        { "state": "Negeri Sembilan", "existing": 5576, "incoming": 838, "planned": 553 },
+        { "state": "Melaka", "existing": 7309, "incoming": 261, "planned": 249 },
+        { "state": "Kedah", "existing": 3887, "incoming": 386, "planned": 130 },
+        { "state": "Pahang", "existing": 3686, "incoming": 72, "planned": 193 },
+        { "state": "Terengganu", "existing": 910, "incoming": 56, "planned": 1 },
+        { "state": "Kelantan", "existing": 634, "incoming": 15, "planned": 28 },
+        { "state": "Perlis", "existing": 315, "incoming": 182, "planned": 19 },
+        { "state": "Sabah", "existing": 6432, "incoming": 291, "planned": 291 },
+        { "state": "Sarawak", "existing": 7641, "incoming": 199, "planned": 203 }
+      ],
+      "trends": {
+        "half_year": ["H1 2022","H2 2022","H1 2023","H2 2023","H1 2024","H2 2024","H1 2025"],
+        "completions": [118,471,260,631,149,580,353],
+        "starts": [265,272,413,803,301,1013,823],
+        "new_planned": [118,350,478,1372,148,1102,496]
+      }
+    },
+    "leisure": {
+      "by_state": [
+        { "state": "WP Kuala Lumpur", "existing_hotels": 260, "existing_rooms": 49772, "incoming_hotels": 17, "incoming_rooms": 3862, "planned_hotels": 11, "planned_rooms": 2248 },
+        { "state": "WP Putrajaya", "existing_hotels": 7, "existing_rooms": 1769, "incoming_hotels": 0, "incoming_rooms": 0, "planned_hotels": 1, "planned_rooms": 270 },
+        { "state": "WP Labuan", "existing_hotels": 43, "existing_rooms": 1858, "incoming_hotels": 1, "incoming_rooms": 116, "planned_hotels": 0, "planned_rooms": 0 },
+        { "state": "Selangor", "existing_hotels": 210, "existing_rooms": 26286, "incoming_hotels": 0, "incoming_rooms": 0, "planned_hotels": 1, "planned_rooms": 495 },
+        { "state": "Johor", "existing_hotels": 492, "existing_rooms": 32455, "incoming_hotels": 10, "incoming_rooms": 2318, "planned_hotels": 7, "planned_rooms": 2890 },
+        { "state": "Pulau Pinang", "existing_hotels": 252, "existing_rooms": 25583, "incoming_hotels": 11, "incoming_rooms": 2174, "planned_hotels": 10, "planned_rooms": 1431 },
+        { "state": "Perak", "existing_hotels": 337, "existing_rooms": 17849, "incoming_hotels": 10, "incoming_rooms": 1106, "planned_hotels": 2, "planned_rooms": 363 },
+        { "state": "Negeri Sembilan", "existing_hotels": 158, "existing_rooms": 12151, "incoming_hotels": 5, "incoming_rooms": 1594, "planned_hotels": 5, "planned_rooms": 446 },
+        { "state": "Melaka", "existing_hotels": 180, "existing_rooms": 19863, "incoming_hotels": 2, "incoming_rooms": 699, "planned_hotels": 4, "planned_rooms": 1582 },
+        { "state": "Kedah", "existing_hotels": 177, "existing_rooms": 13320, "incoming_hotels": 6, "incoming_rooms": 756, "planned_hotels": 4, "planned_rooms": 406 },
+        { "state": "Pahang", "existing_hotels": 305, "existing_rooms": 26037, "incoming_hotels": 0, "incoming_rooms": 0, "planned_hotels": 9, "planned_rooms": 783 },
+        { "state": "Terengganu", "existing_hotels": 251, "existing_rooms": 11677, "incoming_hotels": 3, "incoming_rooms": 446, "planned_hotels": 2, "planned_rooms": 316 },
+        { "state": "Kelantan", "existing_hotels": 91, "existing_rooms": 4360, "incoming_hotels": 1, "incoming_rooms": 144, "planned_hotels": 1, "planned_rooms": 10 },
+        { "state": "Perlis", "existing_hotels": 32, "existing_rooms": 1273, "incoming_hotels": 2, "incoming_rooms": 120, "planned_hotels": 1, "planned_rooms": 120 },
+        { "state": "Sabah", "existing_hotels": 437, "existing_rooms": 25388, "incoming_hotels": 13, "incoming_rooms": 3406, "planned_hotels": 11, "planned_rooms": 2791 },
+        { "state": "Sarawak", "existing_hotels": 390, "existing_rooms": 22038, "incoming_hotels": 1, "incoming_rooms": 205, "planned_hotels": 1, "planned_rooms": 220 }
+      ],
+      "trends": {
+        "half_year": ["H1 2022","H2 2022","H1 2023","H2 2023","H1 2024","H2 2024","H1 2025"],
+        "completions_rooms": [1071,270,0,2225,637,1753,712],
+        "starts_rooms": [1094,407,0,690,0,804,223],
+        "new_planned_rooms": [29,190,733,178,327,73,785]
+      }
+    }
+  }
+}
+

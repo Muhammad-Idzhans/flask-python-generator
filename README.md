@@ -1,86 +1,38 @@
-## Deployment of Flask Application to the Azure Web App
-```cmd
+# JPPH Laporan Stok Harta Tanah - Document Generator
+This service automatically generates Laporan Stok Harta Tanah that follows the official JPPH Malaysia document structure.
 
-az appservice plan create --name flask-webapp-npic --resource-group random-testing --sku B1 --is-linux
+A Flask API endpoint receives a payload (list of property / market data), then a series of agents will assemble, translate, and generate the full report — including HTML layout — which is finally exported into PDF & DOCX format.
 
-
-az webapp create --resource-group random-testing --plan flask-webapp-npic --name doc-generator-npic --runtime "PYTHON|3.11"
-
-
-az webapp config set -g random-testing -n doc-generator-npic --startup-file "bash -lc \"exec gunicorn --bind 0.0.0.0:$PORT app:app\""
-
-
-az webapp config appsettings set -g random-testing -n doc-generator-npic --settings ^
-SCM_DO_BUILD_DURING_DEPLOYMENT=true ^
-PLAYWRIGHT_BROWSERS_PATH=/home/site/wwwroot/.playwright ^
-"POST_BUILD_COMMAND=python -m playwright install chromium"
-
-az webapp deploy -g random-testing -n doc-generator-npic --src-path app.zip
-az webapp deploy -g random-testing -n doc-generator-npic --src-path app.zip --type zip --clean true
+#### **High-level flow:**
+```
+Input Payload
+     ↓
+English Report Generation
+     ↓
+Malay Literal Translation
+     ↓
+HTML Front / Middle / Back Page Layout Construction
+     ↓
+Playwright Rendering to PDF
+     ↓
+    PDF → DOCX Conversion
 ```
 
-In the KUDU Bash:
-```cmd
-cd site/wwwroot
+#### **Workflow Diagram**
+![JPPH Laporan Stok Harta Tanah Document Generator Workflow Diagram](/images/JPPH%20Workflow%20Diagram.png)
 
-cat <<'EOF' > /home/site/wwwroot/startup.sh
-#!/usr/bin/env bash
-set -e
-
-# Persist Playwright browsers under /home
-export PLAYWRIGHT_BROWSERS_PATH=/home/site/wwwroot/.playwright
-
-# Create/activate a virtualenv under persisted /home
-VENV=/home/site/wwwroot/antenv
-if [ ! -d "$VENV" ]; then
-  python -m venv "$VENV"
-fi
-source "$VENV/bin/activate"
-
-# Upgrade pip and install your app's dependencies
-python -m pip install --upgrade pip
-python -m pip install --no-cache-dir -r /home/site/wwwroot/requirements.txt
-
-# Install Playwright OS dependencies + Chromium
-python -m playwright install-deps
-python -m playwright install chromium
-
-# Start Gunicorn (bind to $PORT for App Service health checks)
-exec "$VENV/bin/gunicorn" \
-  --bind 0.0.0.0:${PORT:-8000} \
-  --workers 1 \
-  --timeout 600 \
-  --access-logfile - \
-  --error-logfile - \
-  --log-level debug \
-  app:app
-EOF
-chmod +x /home/site/wwwroot/startup.sh
-
-```
+#### **Agent Architecture**
+| Agent Name                | Responsibility / Scope                                                                  |
+| ------------------------- | --------------------------------------------------------------------------------------- |
+| **eng_report_agent**      | Generates the full report narrative in English based on the payload input.              |
+| **malay_report_agent**    | Translates the English report literally into Malay without changing context or meaning. |
+| **html_front_agent**      | Produces HTML structure for *front matter* (title page, header, summary tables, etc.).  |
+| **html_properties_agent** | Produces HTML for *middle sections* — e.g. 1.0 Kediaman → 7.0 Riadah tables & listings. |
+| **html_back_agent**       | Produces HTML for the *back pages* — appendices, technical notes, JPPH nationwide list. |
 
 
 
-
-
-
----
----
----
----
----
----
----
----
----
----
-
-
-
-
-
-
-## Deployment latest using Playwright (CMD)
+## Deployment of application (CMD) - Using Docker
 #### 1. Create a Web App plan
 - The web app plan is basic and uses Linux.
 ```cmd
@@ -125,6 +77,7 @@ playwright==1.55.0
 ```
 
 #### 4. Create a `dockerfile` in the project:
+Inside this dockerfile, since we wrote `COPY . /app`, make sure all of your images and the required files are inside this /app folder.
 ```docker
 # Playwright base image with browsers & OS deps installed
 # (This image simplifies Chromium on Azure. If v1.55.0 tag is unavailable,
@@ -217,7 +170,7 @@ GET https://<your-app>.azurewebsites.net/health
 POST https://<your-app>.azurewebsites.net/api/report?format=links
 ```
 
-## Steps for updating the app
+## Steps for updating the flask app
 #### 1. Make your code changes locally (eg., update app.py)
 
 #### 2. Rebuild the Docker Image:

@@ -215,8 +215,8 @@ No part of this report may be reproduced, stored in a retrieval system, transmit
 PENDAHULUAN_BM = """
 Laporan Stok Harta Tanah menyebarkan maklumat berdasarkan kepada skop berikut:
 
-i. Stok sedia ada mengikut sub-sektor harta tanah iaitu kediaman, perdagangan, industri dan riadah.
-ii. Penawaran hadapan yang terdiri daripada data penawaran akan datang, mula pembinaan dan penawaran yang dirancang.
+i. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stok sedia ada mengikut sub-sektor harta tanah iaitu kediaman, perdagangan, industri dan riadah.
+ii. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Penawaran hadapan yang terdiri daripada data penawaran akan datang, mula pembinaan dan penawaran yang dirancang.
 
 Ingin dimaklumkan bahawa semua jadual data tersebut perlu dibaca seiring dengan catatan teknikal yang disertakan bersama laporan ini. Maklumat berkenaan harta tanah perdagangan iaitu kompleks perniagaan dikategorikan kepada pusat membeli belah, arked dan pasaraya besar manakala bagi pejabat binaan khas terdiri daripada pejabat kerajaan dan swasta.
 
@@ -240,8 +240,8 @@ Email : napic@jpph.gov.my
 FOREWORD_ENG = """
 The Property Market Stock Report disseminates informations on the following scopes:
 
-i. Existing inventories of properties on a sectorial basis namely residential, commercial, industry and leisure.
-ii. Future supply comprises Incoming Supply, Construction Starts and Planned Supply.
+i. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Existing inventories of properties on a sectorial basis namely residential, commercial, industry and leisure.
+ii. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Future supply comprises Incoming Supply, Construction Starts and Planned Supply.
 
 Please be informed that all the data tabulated should be read in line with NAPIC’s Technical Notes attached in the report. Information pertaining to commercial properties ie shopping complex is categorized into three sections ie shopping centre, arcade and hypermarket whilst for purpose built office designated for publicly owned and private ownership.
 
@@ -1285,7 +1285,8 @@ INPUT
 OUTPUT (plain text, not HTML)
 Produce a structured report in this exact order:
 1) Title line (use the input 'title')
-2) Period & Generated On (e.g., “Period: Jan–Jun 2025 \n Generated on: 2025-10-28”)
+    1.1) Title in Malay line (use the input 'title_english')
+2) Report Type (use the input 'report_type')
 3) Executive Summary (2–4 concise paragraphs)
  - Summarize national totals and the key directional movements from 'trends' (e.g., completions up, new planned down).
  - Mention top contributing states where relevant.
@@ -1339,7 +1340,7 @@ HTML_MAKER_INSTRUCTIONS_1 = f"""
 You are an HTML builder for a printable A4 report.
 - Input: English report text, Malay report text, and chart file URIs (file:///...).
 - Output: A complete HTML document with:
-    Page 1: Title and meta info (Period, Generated On).
+    Page 1: Title, English Title and Report Type.
         - Both title and meta info at the center of the page vertically and horizontally.
         - Page height is 297mm, width 100%
         - Title font-size: 2em
@@ -1357,9 +1358,9 @@ You are an HTML builder for a printable A4 report.
                         </div>
                         
                         <div style="text-align: center;">
-                            <h1 style="font-size:3em; color:white;">[Report Title]</h1>
-                            <div style="font-size:2em; margin: 16px 0; color:white;">[Period]</div>
-                            <div style="font-size:2em; margin: 16px 0; color:white;">[Generated On</div>
+                            <h1 style="font-size:2em; color:white; text-transform: uppercase;"><strong>[Report Title]</strong></h1>
+                            <h1 style="font-size:25px; color:white;">[Report Title English]</h1>
+                            <h1 style="font-size:2em; color:white; text-transform: uppercase;">[Report Type]</h1>
                         </div>
                         <!-- <img src="assets/kementerian_kewangan_logo.jpg" style="height: 100px; width: 100px;"/> -->
                         <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 40px;">
@@ -1733,6 +1734,16 @@ def orchestrate_report(payload: dict, forced_job_id: str | None = None) -> dict:
         system_hint="Terjemah ke Bahasa Malaysia dengan gaya rasmi mengikut arahan."
     )
 
+    # --- NEW: Inject year into technical notes ---
+    tn_year = int(payload.get("technical_notes_version") or payload.get("year") or datetime.now().year)
+    tech_notes_eng = TECHNICAL_NOTES_ENG.format(year=tn_year)
+    tech_notes_malay = TECHNICAL_NOTES_MALAY.format(year=tn_year)
+    
+    instr3 = HTML_MAKER_INSTRUCTIONS_3.replace(
+        repr(TECHNICAL_NOTES_ENG), repr(tech_notes_eng)
+    ).replace(
+        repr(TECHNICAL_NOTES_MALAY), repr(tech_notes_malay)
+    )
     
     # Allow both "cover_image" or "background-image" as payload keys
     cover_key = payload.get("cover_image") or payload.get("background-image")
@@ -1749,6 +1760,7 @@ def orchestrate_report(payload: dict, forced_job_id: str | None = None) -> dict:
         base_filename = forced_job_id
     else:
         title = payload.get("title") or "Generated Report"
+        title_english = payload.get("title_english") or "Laporan Dihasilkan"
         base_filename = f"{slugify(title)}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
 
     job_dir = OUTPUT_DIR / base_filename
@@ -1766,8 +1778,8 @@ def orchestrate_report(payload: dict, forced_job_id: str | None = None) -> dict:
     # 4) Prepare scoped payloads (minimal inputs for each agent)
     front_payload = {
         "title": payload.get("title", ""),
-        "period": payload.get("period", ""),
-        "generated_on": payload.get("generated_on", datetime.now().strftime("%Y-%m-%d")),
+        "title_english": payload.get("title_english", ""),
+        "report_type": payload.get("report_type", ""),
         "rows": payload.get("rows", []),
         "charts": charts,
         "cover_image_uri": cover_image_uri,
@@ -1804,6 +1816,7 @@ def orchestrate_report(payload: dict, forced_job_id: str | None = None) -> dict:
         raise RuntimeError(f"[html-agent-2] {e}")
     
     try:
+        _agents_client.update_agent(agent_id=_html_back_agent.id, instructions=instr3)
         back_html = _strip_code_fences(run_agent_text(
             _html_back_agent, back_payload, "Generate pages 12–15 full HTML"
         ))
